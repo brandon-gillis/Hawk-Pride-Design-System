@@ -1,0 +1,52 @@
+:root{
+/* All text tokens pass WCAG AA (4.5:1) on stone-0/50/100; see guidelines/colors-contrast.html */
+/* Hawk Gold — sampled from the official brandmark (#FCD000). Primary accent + action color */
+--gold-50:#FFFAE0;--gold-100:#FFF2B3;--gold-200:#FFE666;--gold-300:#FCDC2E;--gold-400:#FCD000;--gold-500:#E8BF00;--gold-600:#C9A200;--gold-700:#836800;--gold-800:#5E4B00;
+/* Black — warm, slightly brown-black like shaded rock. Primary dark */
+--black-1000:#000000;--black-950:#0D0D0B;--black-900:#151512;--black-850:#1C1C18;--black-800:#24241F;--black-700:#33322C;--black-600:#4A4940;--black-500:#6B695E;
+/* Stone — warm neutrals for light surfaces, borders, muted text */
+--stone-0:#FFFFFF;--stone-50:#FAF9F5;--stone-100:#F3F1EA;--stone-200:#E6E3D8;--stone-300:#D2CEBF;--stone-400:#AFAA98;--stone-500:#716C5B;--stone-600:#625E50;--stone-700:#45423A;
+/* Earth — supporting tones pulled from the badge's dirt spray; use sparingly */
+--dirt-300:#C9A66B;--dirt-500:#8C6A3A;--dirt-700:#5A4222;
+/* Status */
+--success-500:#2B7541;--success-100:#DDEEE1;
+--warning-500:#946100;--warning-100:#FFF2B3;
+--danger-500:#C0281E;--danger-100:#F8DEDB;
+--info-500:#2A6A8A;--info-100:#DCEAF1;
+/* Trail difficulty — standard trail-sign convention */
+--trail-easy:#2F8F4E;--trail-moderate:#2F6DB5;--trail-difficult:#151512;--trail-extreme:#C62828;
+
+/* Semantic aliases */
+--bg-page:var(--stone-50);
+--bg-sunken:var(--stone-100);
+--bg-inverse:var(--black-950);
+--surface-card:var(--stone-0);
+--surface-raised:var(--stone-0);
+--surface-inverse:var(--black-900);
+--surface-inverse-2:var(--black-850);
+--surface-accent:var(--gold-400);
+--text-strong:var(--black-950);
+--text-body:#2A2924;
+--text-muted:var(--stone-600);
+--text-subtle:var(--stone-500);
+--text-inverse:var(--stone-50);
+--text-inverse-muted:#B9B6AA;
+--text-on-accent:var(--black-950);
+--text-accent-on-dark:var(--gold-400);
+--text-link:var(--gold-700);
+--text-link-hover:var(--black-950);
+--border-subtle:var(--stone-200);
+--border-default:var(--stone-300);
+--border-strong:var(--black-950);
+--border-inverse:rgba(250,249,245,.16);
+--border-accent:var(--gold-400);
+--action-primary:var(--gold-400);
+--action-primary-hover:var(--gold-300);
+--action-primary-press:var(--gold-500);
+--action-primary-text:var(--black-950);
+--action-secondary:var(--black-950);
+--action-secondary-hover:var(--black-800);
+--action-secondary-text:var(--stone-50);
+--focus-ring:var(--black-950); /* light surfaces; dark surfaces switch to gold-400 via .hp-on-dark etc. Gold-500 on stone was 1.6:1, failing WCAG 2.2 non-text 3:1 */
+--overlay:rgba(13,13,11,.66);
+}

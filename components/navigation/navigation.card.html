@@ -1,0 +1,16 @@
+<!-- @dsCard group="Components" viewport="700x330" name="Navigation" subtitle="SiteHeader, Tabs, BookingBar" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Navigation</title><link rel="stylesheet" href="../../styles.css"><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:var(--bg-page)}.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.col{display:flex;flex-direction:column;gap:14px}.lbl{font:500 11px var(--font-mono);color:var(--text-subtle);text-transform:uppercase;letter-spacing:.06em;width:78px;flex:none}.dark{background:var(--black-950);padding:14px;border-radius:6px}body{padding:0}.pad{padding:16px 20px}</style></head>
+<body><div id="root"></div><script type="text/babel">
+const {SiteHeader,Tabs,BookingBar}=window.HawkPrideDesignSystem_97eec1;
+function App(){const [t,setT]=React.useState('trails');const [f,setF]=React.useState('all');return <div>
+<SiteHeader logoSrc="../../assets/logo/brandmark-gold.svg" current="trails" links={[{id:'trails',label:'Trails'},{id:'events',label:'Events'},{id:'stay',label:'Stay'},{id:'pricing',label:'Pricing'}]}/>
+<div className="pad col"><Tabs value={t} onChange={setT} items={[{id:'trails',label:'Trails',count:124},{id:'map',label:'Map',icon:'map'},{id:'rules',label:'Park rules'}]}/>
+<Tabs variant="pill" value={f} onChange={setF} items={[{id:'all',label:'All'},{id:'easy',label:'Easy'},{id:'mod',label:'Moderate'},{id:'hard',label:'Difficult'},{id:'x',label:'Extreme'}]}/></div>
+<BookingBar sticky={false} price={145} summary="Fri, Apr 24 – Sun, Apr 26 · 4 guests" ctaLabel="Reserve"/>
+</div>}
+ReactDOM.createRoot(root).render(<App/>);
+</script></body></html>

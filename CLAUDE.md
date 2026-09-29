@@ -1,0 +1,1 @@
+- Read `ROADMAP.md` at the start of each session; it tracks v1 progress, locked decisions and open questions. Update checkboxes and decisions as work lands.

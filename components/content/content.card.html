@@ -1,0 +1,18 @@
+<!-- @dsCard group="Components" viewport="700x400" name="Content" subtitle="Card, Photo, EventCard, LodgingCard, PriceCard, TrailRow" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Content</title><link rel="stylesheet" href="../../styles.css"><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:var(--bg-page)}.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.col{display:flex;flex-direction:column;gap:14px}.lbl{font:500 11px var(--font-mono);color:var(--text-subtle);text-transform:uppercase;letter-spacing:.06em;width:78px;flex:none}.dark{background:var(--black-950);padding:14px;border-radius:6px}.g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}</style></head>
+<body><div id="root"></div><script type="text/babel">
+const {EventCard,LodgingCard,PriceCard,TrailRow,Button}=window.HawkPrideDesignSystem_97eec1;
+ReactDOM.createRoot(root).render(<div className="col">
+<div className="g">
+<EventCard title="Ride at the Pride" month="APR" day="24" dates="Apr 24–26" type="Park ride" status="featured"/>
+<LodgingCard name="Ridge View Cabin" kind="Cabin" sleeps={6} features={['A/C','Porch']} price={145}/>
+<PriceCard title="2-Day Pass" price={30} unit="/ rider" highlight badge="Popular" features={['Fri–Sat or Sat–Sun','Primitive camping']} action={<Button block size="sm">Buy passes</Button>}/>
+</div>
+<div><EventCard layout="row" title="Mardi Krawl" month="AUG" day="25" dates="Aug 25–28" type="Club event" status="few"/></div>
+<div style={{background:'#fff',padding:'0 12px',borderRadius:6,border:'1px solid var(--border-subtle)'}}><TrailRow number="#42" name="Widowmaker" level="extreme" vehicles="Buggy only" length="0.4 mi"/><TrailRow number="#07" name="Cane Creek Loop" level="easy" vehicles="All vehicles" length="3.2 mi"/></div>
+</div>);
+</script></body></html>

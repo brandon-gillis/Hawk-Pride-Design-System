@@ -1,0 +1,41 @@
+:root{
+--font-display:"Archivo","Arial Narrow",sans-serif;
+--fstretch-display:62%; /* @kind font */
+--font-body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+--font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+/* Display — Archivo Condensed (wdth 62) 800, uppercase */
+--fs-display-xl:clamp(48px,8vw,88px); /* @kind font */
+--lh-display-xl:.92; /* @kind font */
+--fs-display-l:clamp(40px,6vw,64px); /* @kind font */
+--lh-display-l:.95; /* @kind font */
+--fs-h1:clamp(34px,4.5vw,48px); /* @kind font */
+--lh-h1:1; /* @kind font */
+--fs-h2:clamp(28px,3.5vw,36px); /* @kind font */
+--lh-h2:1.05; /* @kind font */
+--fs-h3:clamp(22px,2.4vw,26px); /* @kind font */
+--lh-h3:1.15; /* @kind font */
+--fs-h4:clamp(18px,1.8vw,20px); /* @kind font */
+--lh-h4:1.2; /* @kind font */
+/* Body — Archivo (wdth 100) */
+--fs-body-l:18px; /* @kind font */
+--lh-body-l:1.55; /* @kind font */
+--fs-body:16px; /* @kind font */
+--lh-body:1.5; /* @kind font */
+--fs-small:14px; /* @kind font */
+--lh-small:1.45; /* @kind font */
+--fs-caption:12px; /* @kind font */
+--lh-caption:1.35; /* @kind font */
+--fs-eyebrow:13px; /* @kind font */
+--ls-eyebrow:.14em; /* @kind font */
+--fs-price:32px; /* @kind font */
+--fw-regular:400; /* @kind font */
+--fw-medium:500; /* @kind font */
+--fw-semibold:600; /* @kind font */
+--fw-bold:700; /* @kind font */
+--fw-black:800; /* @kind font */
+--ls-display:0em; /* @kind font */
+--ls-heading:.02em; /* @kind font */
+--ls-body:0em; /* @kind font */
+--ls-caption:.01em; /* @kind font */
+--ls-button:.05em; /* @kind font */
+}

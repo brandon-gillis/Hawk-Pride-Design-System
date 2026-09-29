@@ -1,0 +1,18 @@
+<!-- @dsCard group="Colors" viewport="760x740" name="Contrast matrix" subtitle="WCAG ratios for every text color on every surface, computed live from tokens" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"><style>body{margin:0;padding:20px;background:var(--bg-page);font-family:var(--font-body);color:var(--text-body)}a{color:var(--text-link)}a:hover{color:var(--text-link-hover)}
+table{border-collapse:separate;border-spacing:4px;width:100%;table-layout:fixed}th{font:600 11px/1.3 var(--font-mono);color:var(--text-muted);text-align:left;padding:4px 2px;vertical-align:bottom}th.r{width:128px}
+td{height:40px;border-radius:4px;text-align:center;position:relative}td b{display:block;font:700 15px/1 var(--font-body)}td i{display:block;font:600 10px/1 var(--font-mono);font-style:normal;margin-top:3px;letter-spacing:.04em}
+.key{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:13px;color:var(--text-muted)}.key span{display:flex;align-items:center;gap:6px}.key em{font:600 11px var(--font-mono);font-style:normal;padding:2px 5px;border-radius:3px;background:var(--black-950);color:var(--gold-400)}
+</style></head><body><table id="m"></table>
+<div class="key"><span><em>AAA</em> ≥ 7 · any text</span><span><em>AA</em> ≥ 4.5 · body text</span><span><em>LG</em> ≥ 3 · 24px+ or 19px bold only</span><span><em>—</em> &lt; 3 · decorative only</span></div>
+<script>
+const fg=['black-950','text-body','stone-700','stone-600','stone-500','stone-50','text-inverse-muted','gold-400','gold-700','gold-800','danger-500','success-500','warning-500','info-500'];
+const bg=['stone-0','stone-50','stone-100','gold-400','black-950','black-850'];
+const cs=getComputedStyle(document.documentElement),v=n=>cs.getPropertyValue('--'+n).trim();
+const hex=c=>{const d=document.createElement('div');d.style.color=c;document.body.appendChild(d);const m=getComputedStyle(d).color.match(/\d+/g).map(Number);d.remove();return m};
+const L=([r,g,b])=>{const f=x=>(x/=255)<=.03928?x/12.92:((x+.055)/1.055)**2.4;return .2126*f(r)+.7152*f(g)+.0722*f(b)};
+const ratio=(a,b)=>{const x=L(hex(a)),y=L(hex(b));return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+let h='<tr><th class="r">text ↓ / surface →</th>'+bg.map(b=>`<th>${b}</th>`).join('')+'</tr>';
+for(const f of fg){h+=`<tr><th class="r">${f}</th>`;for(const b of bg){const r=ratio(v(f),v(b)),lv=r>=7?'AAA':r>=4.5?'AA':r>=3?'LG':'—';const dim=r<3;h+=`<td style="background:var(--${b});color:var(--${f});${b==='stone-0'?'box-shadow:inset 0 0 0 1px var(--border-subtle);':''}${dim?'background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(128,128,128,.28) 5px 6px);':''}"><b style="${dim?'opacity:.5':''}">${r.toFixed(1)}</b><i>${lv}</i></td>`}h+='</tr>'}
+document.getElementById('m').innerHTML=h;
+</script></body></html>

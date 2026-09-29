@@ -1,0 +1,37 @@
+<!-- @dsCard group="Components" viewport="760x1100" name="States & accessibility" subtitle="Focus, disabled, error, on-dark, hit areas — the QA baseline every component meets" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>States</title><link rel="stylesheet" href="../styles.css"><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:var(--bg-page);font-family:var(--font-body);color:var(--text-body)}a{color:var(--text-link)}a:hover{color:var(--text-link-hover)}
+h3{margin:0 0 10px;font:700 13px var(--font-display);font-stretch:var(--fstretch-display);letter-spacing:.14em;text-transform:uppercase;color:var(--text-strong)}section{margin-bottom:22px}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}.lbl{font:500 11px var(--font-mono);color:var(--text-muted);text-transform:uppercase;width:84px;flex:none}.dk .lbl{color:var(--text-inverse-muted)}
+.p{background:var(--stone-0);border:1px solid var(--border-subtle);border-radius:6px;padding:16px;display:grid;gap:14px}.dk{background:var(--black-950);border-color:var(--black-950)}
+.ff{outline:3px solid var(--focus-ring);outline-offset:2px}.dk .ff{outline-color:var(--gold-400)}
+.hit{position:relative}.hit::before{content:"";position:absolute;left:50%;top:50%;width:max(100%,44px);height:max(100%,44px);transform:translate(-50%,-50%);border:1.5px dashed var(--danger-500);border-radius:3px;pointer-events:none}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ul{margin:0;padding:0;list-style:none;display:grid;gap:7px;font-size:13px;line-height:1.4}li{display:grid;grid-template-columns:18px 1fr;gap:6px}li::before{content:"✓";color:var(--success-500);font-weight:700}
+</style></head><body><div id="root"></div><script type="text/babel">
+const {Button,IconButton,Input,Checkbox,Switch,Badge,Tabs}=window.HawkPrideDesignSystem_97eec1;
+function App(){const [t,setT]=React.useState('all');return <>
+<section><h3>Focus ring</h3><div className="two">
+<div className="p"><div className="row"><span className="lbl">Light</span><Button className="ff">Buy passes</Button><Button variant="outline" className="ff">Trail map</Button><IconButton icon="heart" label="Save" className="ff"/></div><span style={{fontSize:13,color:'var(--text-muted)'}}>3px black-950, 2px offset</span></div>
+<div className="p dk hp-on-dark"><div className="row"><span className="lbl">Dark</span><Button className="ff">Buy passes</Button><Button variant="outline" className="ff">Trail map</Button><IconButton icon="heart" label="Save" variant="dark" className="ff"/></div><span style={{fontSize:13,color:'var(--text-inverse-muted)'}}>3px gold-400, 2px offset</span></div>
+</div></section>
+<section><h3>Disabled &amp; error</h3><div className="p"><div className="row"><span className="lbl">Disabled</span><Button disabled>Reserve</Button><Button variant="secondary" disabled>Check availability</Button><Checkbox label="Firewood bundle" disabled/><Switch label="Pet friendly" disabled/></div>
+<div className="row" style={{alignItems:'flex-start'}}><span className="lbl" style={{paddingTop:30}}>Error</span><div style={{flex:1,maxWidth:300}}><Input label="Email" defaultValue="jess@" error="Enter a valid email"/></div><div style={{flex:1,maxWidth:300}}><Input label="Riders" defaultValue="2" hint="Ages 10 and up"/></div></div></div></section>
+<section><h3>44px hit areas</h3><div className="p"><div className="row" style={{gap:26}}><span className="lbl">Target</span><span className="hit"><Button size="sm">Book now</Button></span><span className="hit"><IconButton icon="heart" label="Save" size="sm"/></span><span className="hit"><IconButton icon="plus" label="More riders"/></span><Badge tone="gold">Featured</Badge></div><span style={{fontSize:13,color:'var(--text-muted)'}}>Dashed = 44px touch zone. Small buttons stay 36px visually and extend invisibly. Badges aren't interactive.</span>
+<Tabs variant="pill" label="Trail filters" value={t} onChange={setT} items={[{id:'all',label:'All'},{id:'easy',label:'Easy'},{id:'hard',label:'Difficult'}]}/></div></section>
+<section style={{margin:0}}><h3>Every component</h3><div className="p"><ul>
+<li>Keyboard: every clickable thing is a button or link, or has role, tabIndex and Enter/Space (Card, TrailRow)</li>
+<li>Tabs: arrow keys, Home/End, roving tabIndex, optional <code>label</code></li>
+<li>Dialog: focus moves in, Tab is trapped, Escape closes, focus returns; titled via aria-labelledby</li>
+<li>Fields: label linked, hint/error linked with aria-describedby, aria-invalid on error</li>
+<li>Icons decorative by default; icon-only buttons need <code>label</code>; difficulty without text gets an aria-label</li>
+<li>Status banners use role=status, danger alerts role=alert</li>
+<li>Motion off under prefers-reduced-motion</li>
+<li>Text contrast AA on every approved pairing (see Colors · Contrast matrix)</li>
+</ul></div></section>
+</>}
+ReactDOM.createRoot(root).render(<App/>);
+</script></body></html>

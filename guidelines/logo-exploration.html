@@ -1,0 +1,102 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Hawk Pride · Logo round 1</title><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0;background:#E6E3D8;font-family:'IBM Plex Mono',monospace;color:#0D0D0B}
+a{color:#836800}a:hover{color:#0D0D0B}
+.board{background:#FAF9F5;display:flex;flex-direction:column;flex:none}
+.head{display:flex;justify-content:space-between;align-items:center;padding:20px 28px;border-bottom:1px solid #D2CEBF}
+.head>div{display:flex;gap:12px;align-items:center}
+.id{background:#0D0D0B;color:#F8D400;font:500 13px 'IBM Plex Mono';padding:4px 8px}
+.ttl{font:800 22px 'Big Shoulders Display';text-transform:uppercase;letter-spacing:.04em}
+.meta{font-size:12px;color:#625E50}
+.m-ink{background:#0D0D0B;-webkit-mask:url(../assets/logo/brandmark-black.png) center/contain no-repeat;mask:url(../assets/logo/brandmark-black.png) center/contain no-repeat}
+.m-gold{background:url(../assets/logo/brandmark-gold.png) center/contain no-repeat}
+/* 1a badge */
+.badge{position:relative;width:420px;height:300px}
+.badge .box{position:absolute;left:0;right:0;bottom:0;height:196px;background:#0D0D0B;border-radius:4px}
+.badge .mk{position:absolute;left:50%;top:0;width:330px;height:145px;margin-left:-165px}
+.badge .w1{position:absolute;left:0;right:0;bottom:66px;text-align:center;font:900 64px/1 'Big Shoulders Display';color:#F8D400;letter-spacing:.02em}
+.badge .rule{position:absolute;left:28px;right:28px;bottom:48px;height:2px;background:#F8D400}
+.badge .w2{position:absolute;left:0;right:0;bottom:14px;text-align:center;font:800 24px/1 'Big Shoulders Display';color:#FAF9F5;letter-spacing:.42em;padding-left:.42em}
+.badge.keyline .box{box-shadow:inset 0 0 0 3px #F8D400}
+/* 1b stacked */
+.stack{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.stack .w1{font:900 50px/1 'Archivo';font-stretch:125%;letter-spacing:-.01em}
+.stack .sub{display:flex;align-items:center;gap:14px;width:380px}
+.stack .sub i{flex:1;height:2px;background:currentColor}
+.stack .sub span{font:700 15px/1 'Archivo';font-stretch:112%;letter-spacing:.32em;padding-left:.32em}
+/* 1c horizontal */
+.hz{display:flex;align-items:center;justify-content:center;gap:22px;height:180px}
+.hz .mk{width:190px;height:83px}
+.hz .bar{width:2px;height:74px;background:currentColor}
+.hz .w1{font:900 60px/.85 'Big Shoulders Display';letter-spacing:.01em}
+.hz .w2{font:800 17px/1 'Big Shoulders Display';letter-spacing:.3em;margin-top:8px}
+.tile{display:flex;flex-direction:column;gap:6px;align-items:center;font-size:11px;color:#625E50}
+.tile>div{display:grid;place-items:center}
+</style></head><body>
+<section data-screen-label="Logo round 1" style="display:flex;gap:48px;align-items:flex-start;padding:64px;width:max-content">
+
+<div class="board" id="notes" style="width:420px;padding:36px;gap:18px">
+<div style="font:900 44px/.9 'Big Shoulders Display';text-transform:uppercase">Why the current logo reads as AI</div>
+<div style="font-size:13px;line-height:1.6;display:flex;flex-direction:column;gap:12px">
+<div><b>Too many ideas.</b> Jeep, side-by-side, trees, hawk, mountains, dirt spray and three type styles, all at once. Nobody would draw it that way on purpose.</div>
+<div><b>Rendered, not designed.</b> Chrome gradients, distressed texture, glow and particles stand in for decisions.</div>
+<div><b>Melted details.</b> The grilles, wheels, roll cages and feathers look right from a distance and fall apart up close.</div>
+<div><b>Generic type.</b> Slanted "esports" lettering with no real spacing, kerning or family.</div>
+<div><b>Doesn't survive a reduction test.</b> At favicon, embroidery or sticker size it turns into mush, and it can't print in one color.</div>
+</div>
+<div style="height:3px;background:#F8D400"></div>
+<div style="font:900 28px/.95 'Big Shoulders Display';text-transform:uppercase">Rules for the rebuild</div>
+<div style="font-size:13px;line-height:1.6;display:flex;flex-direction:column;gap:6px">
+<div>1. One idea: the hawk over the mountain.</div>
+<div>2. Flat black and gold. No gradients, texture or glow.</div>
+<div>3. Real, set type from one family, with deliberate spacing.</div>
+<div>4. Plain geometry for any container.</div>
+<div>5. Must read at 16px and in one color.</div>
+</div>
+<div style="font-size:12px;line-height:1.55;color:#625E50;border-top:1px solid #D2CEBF;padding-top:14px">The brandmark itself still has AI traces (soft grey smudges inside the black, uneven stroke weight). These lockups use it as supplied. It should get a clean vector redraw before anything goes to print.</div>
+</div>
+
+<div class="board" id="1a" style="width:960px">
+<div class="head"><div><span class="id">1a</span><span class="ttl">Badge: the original layout, rebuilt</span></div><span class="meta">Big Shoulders Display 900</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr">
+<div style="height:420px;display:grid;place-items:center"><div class="badge"><div class="box"></div><div class="mk m-gold"></div><div class="w1">HAWK PRIDE</div><div class="rule"></div><div class="w2">OFFROAD</div></div></div>
+<div style="height:420px;display:grid;place-items:center;background:#0D0D0B"><div class="badge keyline"><div class="box"></div><div class="mk m-gold"></div><div class="w1">HAWK PRIDE</div><div class="rule"></div><div class="w2">OFFROAD</div></div></div>
+</div>
+<div style="display:flex;align-items:flex-end;gap:40px;padding:28px;border-top:1px solid #D2CEBF">
+<div class="tile" style="align-items:flex-start"><div class="badge" style="zoom:.4"><div class="box"></div><div class="mk m-gold"></div><div class="w1">HAWK PRIDE</div><div class="rule"></div><div class="w2">OFFROAD</div></div><span>168px</span></div>
+<div class="tile" style="align-items:flex-start"><div class="badge" style="zoom:.2"><div class="box"></div><div class="mk m-gold"></div><div class="w1">HAWK PRIDE</div><div class="rule"></div><div class="w2">OFFROAD</div></div><span>84px: "OFFROAD" is gone. Use the mark alone below this.</span></div>
+</div>
+</div>
+
+<div class="board" id="1b" style="width:960px">
+<div class="head"><div><span class="id">1b</span><span class="ttl">Stacked: no container, wide type</span></div><span class="meta">Archivo Expanded 900</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr">
+<div class="stack" style="height:420px;color:#0D0D0B"><div class="m-ink" style="width:340px;height:149px"></div><div class="w1">HAWK PRIDE</div><div class="sub"><i></i><span>MOUNTAIN OFFROAD</span><i></i></div></div>
+<div class="stack" style="height:420px;background:#0D0D0B;color:#F8D400"><div class="m-gold" style="width:340px;height:149px"></div><div class="w1" style="color:#FAF9F5">HAWK PRIDE</div><div class="sub"><i></i><span>MOUNTAIN OFFROAD</span><i></i></div></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #D2CEBF">
+<div class="stack" style="height:240px;gap:12px;background:#F8D400;color:#0D0D0B"><div class="m-ink" style="width:220px;height:96px"></div><div class="w1" style="font-size:32px">HAWK PRIDE</div><div style="font:700 10px/1 'Archivo';font-stretch:112%;letter-spacing:.32em">MOUNTAIN OFFROAD</div></div>
+<div class="stack" style="height:240px;gap:12px;position:relative;background:url(../assets/photos/hillside-traffic.jpg) 50% 40%/cover">
+<div style="position:absolute;inset:0;background:rgba(13,13,11,.55)"></div>
+<div class="m-gold" style="position:relative;width:220px;height:96px"></div><div class="w1" style="position:relative;font-size:32px;color:#FAF9F5">HAWK PRIDE</div><div style="position:relative;font:700 10px/1 'Archivo';font-stretch:112%;letter-spacing:.32em;color:#F8D400">MOUNTAIN OFFROAD</div></div>
+</div>
+</div>
+
+<div class="board" id="1c" style="width:960px">
+<div class="head"><div><span class="id">1c</span><span class="ttl">Horizontal lockup + the mark alone</span></div><span class="meta">For headers, signage, small use</span></div>
+<div class="hz" style="color:#0D0D0B"><div class="mk m-gold"></div><div class="bar"></div><div><div class="w1">HAWK PRIDE</div><div class="w2">MOUNTAIN OFFROAD</div></div></div>
+<div class="hz" style="background:#0D0D0B;border-top:3px solid #F8D400;color:#F8D400"><div class="mk m-gold"></div><div class="bar"></div><div><div class="w1" style="color:#FAF9F5">HAWK PRIDE</div><div class="w2">MOUNTAIN OFFROAD</div></div></div>
+<div style="padding:28px;border-top:1px solid #D2CEBF;display:flex;flex-direction:column;gap:16px">
+<div style="font:800 18px 'Big Shoulders Display';text-transform:uppercase;letter-spacing:.06em">The mark alone: reduction test</div>
+<div style="display:flex;align-items:flex-end;gap:28px">
+<div class="tile"><div style="width:128px;height:128px;background:#F8D400;border-radius:22px"><div class="m-ink" style="width:108px;height:48px"></div></div>App icon 128</div>
+<div class="tile"><div style="width:128px;height:128px;background:#0D0D0B;border-radius:22px"><div class="m-gold" style="width:112px;height:50px"></div></div>Dark 128</div>
+<div class="tile"><div style="width:48px;height:48px;background:#F8D400;border-radius:9px"><div class="m-ink" style="width:42px;height:19px"></div></div>48</div>
+<div class="tile"><div style="width:32px;height:32px;background:#F8D400;border-radius:6px"><div class="m-ink" style="width:29px;height:13px"></div></div>32</div>
+<div class="tile"><div style="width:16px;height:16px;background:#F8D400;border-radius:3px"><div class="m-ink" style="width:15px;height:7px"></div></div>16</div>
+<div style="flex:1;font-size:12px;line-height:1.55;color:#625E50">The mark is wide (about 2.3:1), so in a square it only fills the middle band. At 32px and below the hawk disappears. Small sizes need a simplified cut: the main peak and the hawk only, with no inner ridges.</div>
+</div>
+</div>
+</div>
+
+</section></body></html>

@@ -1,0 +1,55 @@
+<!-- @dsCard group="Brand" viewport="760x900" name="Iconography · usage" subtitle="Sizes, color, labels, sign badges and the park vocabulary" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"><style>body{margin:0;padding:20px;background:var(--bg-page);font-family:var(--font-body);color:var(--text-body)}a{color:var(--text-link)}a:hover{color:var(--text-link-hover)}
+h3{margin:0 0 10px;font:700 13px var(--font-display);font-stretch:var(--fstretch-display);letter-spacing:.14em;text-transform:uppercase;color:var(--text-strong)}section{margin-bottom:22px}section:last-child{margin:0}
+.p{background:var(--stone-0);border:1px solid var(--border-subtle);border-radius:6px;padding:16px}.m{font:500 11px/1.35 var(--font-mono);color:var(--text-muted)}
+.sizes{display:flex;gap:28px;align-items:flex-end}.sizes div{display:grid;gap:6px;justify-items:center}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.lab{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--text-strong)}
+.badges{display:flex;gap:12px;flex-wrap:wrap}.bd{width:56px;height:56px;border-radius:50%;display:grid;place-items:center}
+.voc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.v{display:flex;align-items:center;gap:10px;background:var(--stone-0);border:1px solid var(--border-subtle);border-radius:5px;padding:10px}
+.v b{display:block;font-size:13px;font-weight:600;color:var(--text-strong)}.v span{font:500 10px var(--font-mono);color:var(--text-muted)}
+.gap{background:repeating-linear-gradient(135deg,var(--stone-100) 0 8px,var(--stone-200) 8px 9px);border-style:dashed;border-color:var(--border-default)}
+.gap i{width:24px;height:24px;border:1.5px dashed var(--stone-500);border-radius:4px;flex:none}
+ul{margin:0;padding-left:18px;font-size:13px;line-height:1.5}
+</style></head><body>
+<section><h3>Sizes &amp; color</h3><div class="two">
+<div class="p"><div class="sizes">
+<div><span class="hp-icon" style="width:16px;height:16px;--hp-icon:url(../assets/icons/map-pin.svg);color:var(--text-strong)"></span><span class="m">16 · inline</span></div>
+<div><span class="hp-icon" style="width:20px;height:20px;--hp-icon:url(../assets/icons/map-pin.svg);color:var(--text-strong)"></span><span class="m">20 · buttons</span></div>
+<div><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/map-pin.svg);color:var(--text-strong)"></span><span class="m">24 · default</span></div>
+<div><span class="hp-icon" style="width:32px;height:32px;--hp-icon:url(../assets/icons/map-pin.svg);color:var(--text-strong)"></span><span class="m">32 · features</span></div>
+<div><span class="hp-icon" style="width:48px;height:48px;--hp-icon:url(../assets/icons/map-pin.svg);color:var(--text-strong)"></span><span class="m">48+ · signs</span></div>
+</div></div>
+<div class="p"><ul><li>Icons take the text colour next to them: black, stone-600, stone-50.</li><li>Gold icons only on black, or as gold-600 accents on light (check lists).</li><li>Status colours only for status: alerts, closures, confirmations.</li><li>Never mix in filled, duotone or other icon sets.</li></ul></div>
+</div></section>
+<section><h3>Labels &amp; sign badges</h3><div class="two">
+<div class="p" style="display:grid;gap:10px">
+<span class="lab"><span class="hp-icon" style="width:20px;height:20px;--hp-icon:url(../assets/icons/clock.svg)"></span>Open Fri–Sun, 8 AM</span>
+<span class="lab"><span class="hp-icon" style="width:20px;height:20px;--hp-icon:url(../assets/icons/dog.svg)"></span>Dogs welcome on leash</span>
+<span class="m">Icon + label, 8px gap, centred on the cap height. Icon-only buttons need an aria-label.</span></div>
+<div class="p" style="display:grid;gap:10px"><div class="badges">
+<span class="bd" style="background:var(--black-950)"><span class="hp-icon" style="width:28px;height:28px;--hp-icon:url(../assets/icons/fuel.svg);color:var(--gold-400)"></span></span>
+<span class="bd" style="background:var(--black-950)"><span class="hp-icon" style="width:28px;height:28px;--hp-icon:url(../assets/icons/bath.svg);color:var(--gold-400)"></span></span>
+<span class="bd" style="background:var(--gold-400)"><span class="hp-icon" style="width:28px;height:28px;--hp-icon:url(../assets/icons/tent.svg);color:var(--black-950)"></span></span>
+<span class="bd" style="background:var(--danger-500)"><span class="hp-icon" style="width:28px;height:28px;--hp-icon:url(../assets/icons/hospital.svg);color:var(--stone-0)"></span></span>
+</div><span class="m">Signs and maps: icon at 50% of a circle. Gold on black by default, red for first aid only.</span></div>
+</div></section>
+<section><h3>Park vocabulary</h3><div class="voc">
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/car-front.svg)"></span><div><b>Jeep / 4x4</b><span>car-front</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/truck.svg)"></span><div><b>Trailer parking</b><span>truck</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/route.svg)"></span><div><b>Trail</b><span>route</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/signpost.svg)"></span><div><b>Trail junction</b><span>signpost</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/mountain.svg)"></span><div><b>Hill climb</b><span>mountain</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/waves.svg)"></span><div><b>Creek crossing</b><span>waves</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/binoculars.svg)"></span><div><b>Overlook</b><span>binoculars</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/wrench.svg)"></span><div><b>Repair area</b><span>wrench</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/ticket.svg)"></span><div><b>Day pass</b><span>ticket</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/file-text.svg)"></span><div><b>Waiver</b><span>file-text</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/flame-kindling.svg)"></span><div><b>Campfire</b><span>flame-kindling</span></div></div>
+<div class="v"><span class="hp-icon" style="width:24px;height:24px;--hp-icon:url(../assets/icons/users.svg)"></span><div><b>Spotter / group</b><span>users</span></div></div>
+<div class="v gap"><i></i><div><b>Winch point</b><span>custom needed</span></div></div>
+<div class="v gap"><i></i><div><b>Rock crawl</b><span>custom needed</span></div></div>
+<div class="v gap"><i></i><div><b>Side-by-side</b><span>custom needed</span></div></div>
+<div class="v gap"><i></i><div><b>Air-down / tire</b><span>custom needed</span></div></div>
+</div></section>
+</body></html>

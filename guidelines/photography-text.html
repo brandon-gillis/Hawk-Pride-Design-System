@@ -1,0 +1,23 @@
+<!-- @dsCard group="Brand" viewport="760x640" name="Photography · crops & text" subtitle="Standard ratios and how to set type over photos" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"><style>body{margin:0;padding:20px;background:var(--bg-page);font-family:var(--font-body);color:var(--text-body)}a{color:var(--text-link)}a:hover{color:var(--text-link-hover)}
+h3{margin:0 0 10px;font:700 13px var(--font-display);font-stretch:var(--fstretch-display);letter-spacing:.14em;text-transform:uppercase;color:var(--text-strong)}section{margin-bottom:22px}
+.crops{display:flex;gap:12px;align-items:flex-end}.crops>div{display:grid;gap:6px}.ph{border-radius:5px;background-size:cover;background-position:center;position:relative;overflow:hidden}
+.m{font:500 11px/1.35 var(--font-mono);color:var(--text-muted)}.m b{color:var(--text-strong);font-weight:600}
+.tx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.tx .ph{aspect-ratio:4/5;display:grid;align-content:end;padding:14px}
+.tx .ph::after{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;font:700 12px/20px var(--font-body);text-align:center;color:var(--stone-0)}.ok::after{content:"✓";background:var(--success-500)}.no::after{content:"✕";background:var(--danger-500)}
+.h{position:relative;font:800 30px/.95 var(--font-display);font-stretch:var(--fstretch-display);text-transform:uppercase}.s{position:relative;font-size:13px;margin-top:6px}
+.cap{font-size:13px;line-height:1.35;margin-top:6px;color:var(--text-strong)}
+</style></head><body>
+<section><h3>Crops</h3><div class="crops">
+<div><div class="ph" style="width:256px;aspect-ratio:16/9;background-image:url(../assets/photos/hillside-traffic.jpg)"></div><span class="m"><b>16:9</b> · web hero, video</span></div>
+<div><div class="ph" style="width:160px;aspect-ratio:4/3;background-image:url(../assets/photos/rock-ledge-buggies.jpg)"></div><span class="m"><b>4:3</b> · cards</span></div>
+<div><div class="ph" style="width:112px;aspect-ratio:4/5;background-image:url(../assets/photos/event-crawl-crowd.jpg)"></div><span class="m"><b>4:5</b> · feed</span></div>
+<div><div class="ph" style="width:88px;aspect-ratio:9/16;background-image:url(../assets/photos/buggy-airborne.jpg)"></div><span class="m"><b>9:16</b> · story</span></div>
+<div><div class="ph" style="width:96px;aspect-ratio:1;background-image:url(../assets/photos/pavilion-jeeps.jpg)"></div><span class="m"><b>1:1</b> · avatar, grid</span></div>
+</div><p class="m" style="margin:10px 0 0">Keep the rig or subject in the middle 60%, so one image survives every crop.</p></section>
+<section style="margin:0"><h3>Text over photo</h3><div class="tx">
+<div><div class="ph ok" style="background-image:linear-gradient(180deg,rgba(13,13,11,0) 35%,rgba(13,13,11,.85)),url(../assets/photos/rock-ledge-buggies.jpg)"><div class="h" style="color:var(--stone-50)">Go conquer <span style="color:var(--gold-400)">something.</span></div><div class="s" style="color:var(--stone-100)">Open Fri–Sun</div></div><div class="cap">Bottom gradient to 85% black</div></div>
+<div><div class="ph ok" style="background-image:linear-gradient(rgba(13,13,11,.6),rgba(13,13,11,.6)),url(../assets/photos/event-crawl-crowd.jpg)"><div class="h" style="color:var(--gold-400)">Spring Crawl</div><div class="s" style="color:var(--stone-50)">April 24–26</div></div><div class="cap">Flat 60% overlay on busy shots</div></div>
+<div><div class="ph no" style="background-image:url(../assets/photos/event-crawl-crowd.jpg)"><div class="h" style="color:var(--gold-400)">Spring Crawl</div><div class="s" style="color:var(--stone-0)">April 24–26</div></div><div class="cap">No bare text on busy photos</div></div>
+</div><p class="m" style="margin:10px 0 0">Type goes in the lower third, in stone-50 or gold-400 only. Text must reach 4.5:1 against the darkest overlay point behind it.</p></section>
+</body></html>
