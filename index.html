@@ -1,16 +1,16 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hawk Pride Offroad — Design System</title><link rel="icon" href="assets/logo/brandmark-gold.svg"><link rel="stylesheet" href="styles.css">
 <style>
-*{box-sizing:border-box}html,body{margin:0;height:100%}body{font-family:var(--font-body);color:var(--black-950);background:var(--stone-50)}a{color:inherit}a:hover{color:var(--gold-700)}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden}body{font-family:var(--font-body);color:var(--black-950);background:var(--stone-50)}a{color:inherit}a:hover{color:var(--gold-700)}
 .disp{font-family:var(--font-display);font-weight:800;text-transform:uppercase;font-stretch:62%;font-variation-settings:"wdth" 62;line-height:.95;letter-spacing:.005em}
 .eyebrow{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-stretch:100%}
 .app{display:grid;grid-template-columns:288px minmax(0,1fr);height:100vh}
 .side{background:var(--black-950);color:var(--stone-50);display:flex;flex-direction:column;min-height:0;border-right:1px solid #000}
 .side__top{padding:20px 20px 14px;display:flex;flex-direction:column;gap:16px;border-bottom:1px solid rgba(255,255,255,.08)}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--stone-50)}.brand img{height:44px}.brand b{display:block;font-size:20px;color:var(--stone-50)}.brand span{font-size:12px;color:var(--stone-400,#a19d92)}
+.side__top,.brand{min-width:0}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--stone-50)}.brand img{height:44px}.brand b{display:block;font-size:20px;color:var(--stone-50)}.brand span{font-size:12px;color:var(--stone-400,#a19d92)}
 .search{position:relative}.search input{width:100%;height:40px;border-radius:4px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:var(--stone-50);font:inherit;font-size:14px;padding:0 36px 0 34px}
 .search input::placeholder{color:#8f8b80}.search input:focus{outline:2px solid var(--gold-400);outline-offset:1px;border-color:transparent}
 .search svg{position:absolute;left:10px;top:11px;opacity:.6}.search kbd{position:absolute;right:8px;top:9px;font:12px var(--font-mono);color:#8f8b80;border:1px solid rgba(255,255,255,.18);border-radius:3px;padding:1px 6px}
-.nav{flex:1;overflow:auto;padding:10px 10px 24px}.nav__sec{margin-top:10px}
+.nav{flex:1;overflow-y:auto;overflow-x:hidden;padding:10px 10px 24px}.nav__sec{margin-top:10px}
 .nav__h{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:0;color:var(--gold-400);padding:8px 10px;cursor:pointer;text-align:left;border-radius:4px}
 .nav__h:hover{background:rgba(255,255,255,.05)}.nav__h small{color:#8f8b80;font:12px var(--font-body);letter-spacing:0;text-transform:none}
 .nav a{display:block;padding:7px 10px 7px 14px;border-radius:4px;text-decoration:none;color:var(--stone-200,#d9d5cb);font-size:14px;line-height:1.3;border-left:2px solid transparent;margin-left:6px}
