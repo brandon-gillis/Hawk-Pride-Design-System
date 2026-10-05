@@ -17,7 +17,9 @@ function App(){const hash=useHash();
  switch(page){
   case 'events':body=seg[1]?<EventPage id={seg[1]}/>:<EventsIndex/>;break;
   case 'trails':body=seg[1]?<UphillBothWays/>:<Trails/>;break;
-  case 'fees':body=<Fees/>;break;
+  case 'rates':case 'fees':body=<Rates/>;break;
+  case 'faq':body=<Faq/>;break;
+  case 'gallery':body=<Gallery/>;break;
   case 'cabins':body=<Cabins/>;break;
   case 'camping':body=<Camping/>;break;
   case 'groups':body=<Groups/>;break;
@@ -28,8 +30,9 @@ function App(){const hash=useHash();
   case 'waivers':booking=true;body=<Waivers/>;break;
   case 'confirmation':body=<Confirmation/>;break;
   case 'gate':booking=true;body=<Gate/>;break;
-  default:body=<Home/>;}
+  case 'home':body=<Home/>;break;
+  default:body=<NotFound/>;}
  return <AppCtx.Provider value={ctx}>{booking?body:<Shell page={page}>{body}</Shell>}</AppCtx.Provider>}
-const need=['Shell','Home','Fees','Cabins','Camping','Groups','Rules','Contact','EventsIndex','EventPage','Trails','UphillBothWays','Booking','Checkout','Waivers','Confirmation','Gate','BkFrame'];
+const need=['Shell','Home','Rates','Faq','Gallery','NotFound','ContactForm','Cabins','Camping','Groups','Rules','Contact','EventsIndex','EventPage','Trails','UphillBothWays','Booking','Checkout','Waivers','Confirmation','Gate','BkFrame'];
 const start=()=>{if(need.some(n=>!window[n]))return setTimeout(start,30);if(window.__hpRoot)return;window.__hpRoot=ReactDOM.createRoot(document.getElementById('root'));window.__hpRoot.render(<App/>)};start();
 })();

@@ -1,6 +1,6 @@
 (()=>{
 const {SiteHeader,Alert,Icon,Button,IconButton}=window.DS;
-const LINKS=[{id:'home',label:'Home'},{id:'events',label:'Events'},{id:'trails',label:'Trails'},{id:'fees',label:'Fees'},{id:'cabins',label:'Cabins'},{id:'camping',label:'Camping'},{id:'groups',label:'Groups'},{id:'rules',label:'Rules'},{id:'contact',label:'Contact'}];
+const LINKS=[{id:'home',label:'Home'},{id:'events',label:'Events'},{id:'trails',label:'Trails'},{id:'rates',label:'Rates'},{id:'cabins',label:'Cabins'},{id:'camping',label:'Camping'},{id:'groups',label:'Groups'},{id:'rules',label:'Rules'},{id:'contact',label:'Contact'}];
 const Ctx=React.createContext(null);const useApp=()=>React.useContext(Ctx);
 const LOGO=hpAsset('logo');
 function MobileMenu({open,onClose}){const {go,book}=useApp();if(!open)return null;
@@ -20,15 +20,15 @@ function Footer(){const {go,reset}=useApp();const P=window.HP_DATA.park;
  const a=(l,id)=><a key={l} href={'#/'+id} onClick={e=>{e.preventDefault();go(id)}} className="proto-footlink">{l}</a>;
  return <footer style={{background:'var(--black-950)',color:'var(--stone-50)',borderTop:'3px solid var(--gold-400)'}}>
   <div style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'48px var(--container-pad) 28px',display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(170px,1fr))',gap:32}}>
-   <div style={{display:'flex',flexDirection:'column',gap:14}}><img src={LOGO} alt="Hawk Pride Offroad" style={{width:150}}/><div className="hp-display" style={{color:'var(--gold-400)',fontSize:22}}>Go conquer something.</div></div>
+   <div style={{display:'flex',flexDirection:'column',gap:14}}><img src={LOGO} alt="Hawk Pride" style={{width:150}}/><div className="hp-display" style={{color:'var(--gold-400)',fontSize:22}}>Go conquer something.</div></div>
    {col('Visit',[<span key="a" className="proto-foottext"><Icon name="map-pin" size={18}/>{P.address}</span>,<a key="p" href={'tel:'+P.tel} className="proto-footlink"><Icon name="phone" size={18}/>{P.phone}</a>,<a key="e" href={'mailto:'+P.email} className="proto-footlink"><Icon name="mail" size={18}/>Email us</a>])}
-   {col('Park',[a('Events','events'),a('Trails','trails'),a('Fees','fees'),a('Cabins','cabins'),a('Camping','camping'),a('Groups','groups')])}
-   {col('Before you come',[a('Rules','rules'),a('Sign a waiver','rules/waiver'),a('Find my trip','confirmation'),a('Contact','contact')])}
+   {col('Park',[a('Events','events'),a('Trails','trails'),a('Rates','rates'),a('Cabins','cabins'),a('Camping','camping'),a('Groups','groups')])}
+   {col('Before you come',[a('Rules','rules'),a('Sign a waiver','rules/waiver'),a('Find my trip','confirmation'),a('FAQ','faq'),a('Gallery','gallery'),a('Contact','contact')])}
    {col('Hours',P.hours.map(([d,h])=><span key={d} className="proto-foottext" style={{justifyContent:'space-between',maxWidth:200}}><span>{d}</span><span>{h}</span></span>))}
   </div>
   <div style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'16px var(--container-pad) 28px',borderTop:'1px solid var(--border-inverse)',fontSize:13,color:'var(--text-inverse-muted)',display:'flex',gap:20,flexWrap:'wrap',alignItems:'center'}}>
-   <span>© Hawk Pride Offroad Adventure Park · Tuscumbia, Alabama</span>
-   <span style={{display:'flex',gap:16}}>{['Partners','Host an event','Refund policy','Privacy','Terms'].map(x=><span key={x}>{x}</span>)}</span>
+   <span>© {P.name} · Tuscumbia, Alabama</span>
+   <span style={{display:'flex',gap:16}} title="Pages not yet approved: shown as labels only">{['Partners','Host an event','Refund policy','Terms'].map(x=><span key={x}>{x}</span>)}</span>
    <span style={{display:'flex',gap:10,marginLeft:'auto'}}>{P.social.map(([l,i])=><span key={l} aria-label={l}><Icon name={i} size={20}/></span>)}</span>
    <a href="#/gate" onClick={e=>{e.preventDefault();go('gate')}} className="proto-footlink" style={{fontSize:12,minHeight:0}}>Gate check-in (staff demo)</a><button onClick={reset} style={{background:'none',border:'1px solid var(--border-inverse)',color:'var(--text-inverse-muted)',borderRadius:4,padding:'4px 10px',font:'inherit',fontSize:12,cursor:'pointer'}}>Reset demo</button>
   </div></footer>}

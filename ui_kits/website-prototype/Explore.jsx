@@ -12,7 +12,7 @@ function EventsIndex(){const {go,book}=useApp();const E=window.HP_DATA.events;
       <h2 className="hp-display" style={{fontSize:'var(--fs-h2)',margin:'6px 0'}}>{e.title}</h2><p style={{margin:0,color:'var(--text-muted)'}}>{e.hook}</p></div>
      <div style={{display:'flex',gap:10}}><Button variant="outline" onClick={()=>go('events/'+e.id)}>View Event</Button>{e.status!=='soldout'&&<Button onClick={()=>book({event:e.id})}>Register</Button>}</div>
     </div></div>)}</div>
-   <p style={{marginTop:24,color:'var(--text-muted)'}}>Regular open weekends aren’t listed here. The park is open every Friday to Sunday. <TextLink to="fees">See fees</TextLink>.</p></Section></>}
+   <p style={{marginTop:24,color:'var(--text-muted)'}}>Regular open weekends aren’t listed here. The park is open every Friday to Sunday. <TextLink to="rates">See rates</TextLink>.</p></Section></>}
 function EventPage({id}){const {book,go}=useApp();const e=window.HP_DATA.events.find(x=>x.id===id)||window.HP_DATA.events[0];const closed=e.status==='soldout';
  return <>
   <div style={{position:'relative',minHeight:'min(70vh,600px)',display:'flex',alignItems:'flex-end',background:'var(--black-900)'}}>

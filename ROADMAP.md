@@ -38,18 +38,19 @@ Status key: `[x]` done · `[~]` in progress · `[ ]` not started
 - [x] 10. Component QA: focus ring now black on light / gold on dark (gold-500 failed 3:1); focus-visible on every interactive; 44px hit areas (sm buttons, pill tabs, stepper, header links, checks); keyboard for Card/TrailRow/Tabs (arrows)/Dialog (trap, Esc, return focus); field aria-describedby/invalid; tooltip describedby; reduced motion; BookingBar summary is a button; hardcoded colours tokenised. Card `guidelines/components-states.html`. Known: interactive LodgingCard contains a nested Save button (acceptable; revisit if a11y audit flags)
 - [x] 11. Website kit polish: fixed Button text-node gap bug ("PASS ES"); 4-up pass/stat grids no longer orphan (2×2 tablet, stacked mobile); pill tabs wrap; hardcoded #fff → tokens; gold bars → `.hp-rule`; mobile menu + footer links get wordmark/href. Audit item 6: opt-in `.hp-case-sentence` (card titles, trail names, tabs, dialog titles) — preview with `index.html?case=sentence`; **decision: keep uppercase** (27 Sep)
 - [x] 11b. Website demo prototype (built in `ui_kits/website-prototype/`, option B pages, flow through waivers + confirmation): plan in `ui_kits/website/PROTOTYPE-PLAN.md`. Existing pages only, full flow to checkout, laptop demo, current photos. Rewritten from Drive "Website Rebuild Project" pack (v2). Pending: page scope (A/B), booking end point
+- [x] 11c. Prototype pass vs Drive "Website Handoff" pack (30 Sep): Fees→Rates, FAQ + Gallery secondary pages, contact form, 404, declined payment, gate roster download, neutral public name in copy. **Open (pack):** public business name vs DS "Hawk Pride Offroad" (DS has no authority to rename; header wordmark still shows it), About page, privacy page
 
 ## Phase 4 — Templates (`templates/<slug>/`)
 - [ ] 12. Social post (feed + story)
 - [ ] 12. Event flier
-- [ ] 12. Trail map / rules sheet
+- [ ] 12. Trail map / rules sheet (official 2026 map now in `assets/maps/`; badges in `assets/badges/`, card `guidelines/brand-badges.html`)
 - [ ] 12. Email newsletter
 - [ ] 12. Pass / wristband
 - [ ] 12. Gate sign
 - [ ] 12. Convert `ui_kits/website/mobile.html` to a template; drop legacy `@startingPoint` tags
 
 ## Phase 5 — Consultancy deliverables
-- [ ] 13. Brand guidelines book (paginated PDF): strategy, positioning, voice, logo, color, type, photo, applications, do/don't
+- [~] 13. Brand guide: built as a scrolling web guide (`brand-guide/Brand Guide.html`, 30 Sep): strategy, principles + standards, customer, voice, brandmark, color, applications (web hero, trail sign, closure, sticker/tag, social). Type/photo/graphics left out by choice (live in guidelines cards). Pending: CMYK/Pantone, merch blanks, owner review
 - [ ] 14. Application mockups: signage, merch (tee, hat, sticker), vehicle decal, web hero
 - [ ] 15. Asset pack: logo SVG/PNG/PDF (gold, white, black), favicons, font info, color specs (hex, RGB, CMYK, Pantone)
 - [ ] 16. Developer handoff: tokens, components, usage docs

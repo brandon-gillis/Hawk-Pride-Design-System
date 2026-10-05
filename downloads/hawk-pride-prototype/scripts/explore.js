@@ -2,7 +2,7 @@
 const {Photo,Button,Icon,Badge,Alert,Tabs,TrailRow,Dialog,DifficultyBadge}=window.DS;
 const IMG='./assets/photos/';
 function EventsIndex(){const {go,book}=useApp();const E=window.HP_DATA.events;
- return <><PageHead eyebrow="Events" title="Big weekends on the mountain." intro="Rock crawls, hillclimbs, club rides and holiday weekends. Every event page has dates, what’s included and a way to book." image={IMG+'event-crawl-crowd.jpg'} imageAlt="Crowd at a rock crawl"/>
+ return <><PageHead eyebrow="Events" title="Big weekends on the mountain." intro="Rock crawls, hillclimbs, club rides and holiday weekends. Every event page has dates, what’s included and a way to book." image={hpAsset('event-crawl-crowd.jpg')} imageAlt="Crowd at a rock crawl"/>
   <Section>
    <div style={{display:'flex',flexDirection:'column',gap:16}}>{E.map(e=><div key={e.id} className="hp-card" style={{display:'grid',gridTemplateColumns:'minmax(0,300px) minmax(0,1fr)',overflow:'hidden'}}>
     <div style={{position:'relative',minHeight:190}}><Photo src={e.image||undefined} caption={e.image?undefined:'Event photo'} alt={e.title} ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/></div>
@@ -12,7 +12,7 @@ function EventsIndex(){const {go,book}=useApp();const E=window.HP_DATA.events;
       <h2 className="hp-display" style={{fontSize:'var(--fs-h2)',margin:'6px 0'}}>{e.title}</h2><p style={{margin:0,color:'var(--text-muted)'}}>{e.hook}</p></div>
      <div style={{display:'flex',gap:10}}><Button variant="outline" onClick={()=>go('events/'+e.id)}>View Event</Button>{e.status!=='soldout'&&<Button onClick={()=>book({event:e.id})}>Register</Button>}</div>
     </div></div>)}</div>
-   <p style={{marginTop:24,color:'var(--text-muted)'}}>Regular open weekends aren’t listed here. The park is open every Friday to Sunday. <TextLink to="fees">See fees</TextLink>.</p></Section></>}
+   <p style={{marginTop:24,color:'var(--text-muted)'}}>Regular open weekends aren’t listed here. The park is open every Friday to Sunday. <TextLink to="rates">See rates</TextLink>.</p></Section></>}
 function EventPage({id}){const {book,go}=useApp();const e=window.HP_DATA.events.find(x=>x.id===id)||window.HP_DATA.events[0];const closed=e.status==='soldout';
  return <>
   <div style={{position:'relative',minHeight:'min(70vh,600px)',display:'flex',alignItems:'flex-end',background:'var(--black-900)'}}>
@@ -45,7 +45,7 @@ function EventPage({id}){const {book,go}=useApp();const e=window.HP_DATA.events.
    <div className="g2" style={{gap:'24px 40px'}}>{[['Do I need a waiver?','Yes, every rider. You’ll sign online right after you book.'],['Can I come just to watch?','Yes, spectators are welcome. Spectator pricing is still being set.'],['Are park rules different?','Standard park rules apply. Flags on whips are required.'],['Can I pay at the gate?','Yes, but booking ahead gets you through the gate faster.']].map(([q,a])=><div key={q}><div style={{fontWeight:700,fontSize:17}}>{q}</div><div style={{color:'var(--text-muted)',marginTop:4}}>{a}</div></div>)}</div>
    <div style={{marginTop:28,paddingTop:20,borderTop:'1px solid var(--border-default)',display:'flex',gap:16,alignItems:'center',flexWrap:'wrap'}}><span className="hp-eyebrow" style={{color:'var(--text-muted)'}}>Event sponsors</span>{[1,2,3].map(i=><span key={i} style={{width:120,height:44,border:'1px dashed var(--border-default)',borderRadius:4,display:'grid',placeItems:'center',fontSize:12,color:'var(--text-subtle)'}}>Sponsor logo</span>)}</div></Section></>}
 function Trails(){const {go,book}=useApp();const [f,setF]=React.useState('all');const [t,setT]=React.useState(null);const D=window.HP_DATA.trails;const list=f==='all'?D:D.filter(x=>x.level===f);
- return <><PageHead eyebrow="Trails" title="From wooded trails to serious rock." intro="Over 1,000 acres and 120+ rock trails. Every trail is marked by difficulty so you can pick the ride that fits you and your rig." actions={[<Button key="d" size="lg" icon="download">Download trail map</Button>]} image={IMG+'rock-ledge-buggies.jpg'} imageAlt="Buggies on a rock ledge"/>
+ return <><PageHead eyebrow="Trails" title="From wooded trails to serious rock." intro="Over 1,000 acres and 120+ rock trails. Every trail is marked by difficulty so you can pick the ride that fits you and your rig." actions={[<Button key="d" size="lg" icon="download">Download trail map</Button>]} image={hpAsset('rock-ledge-buggies.jpg')} imageAlt="Buggies on a rock ledge"/>
   <Section>
    <div className="split" style={{alignItems:'start',gridTemplateColumns:'minmax(0,1fr) minmax(0,1.1fr)'}}>
     <div style={{display:'flex',flexDirection:'column',gap:14}}>

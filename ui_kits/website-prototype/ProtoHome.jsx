@@ -49,9 +49,9 @@ function Stay(){const {go,book}=useApp();const C=window.HP_DATA.categories;
   <div className="g3">{S.map(([t,p,d,to,stay])=><div key={t} className="hp-card"><Photo caption={t} ratio="4/3"/><div className="hp-card__body">
    <h3 className="hp-card__title">{t}</h3><div style={{fontWeight:700}}>{p}</div><p style={{margin:0,color:'var(--text-muted)',fontSize:15}}>{d}</p>
    <div style={{display:'flex',gap:10,marginTop:6,flexWrap:'wrap'}}><Button size="sm" onClick={()=>book({stay})}>Check availability</Button><Button size="sm" variant="ghost" onClick={()=>go(to)}>Details</Button></div></div></div>)}</div></Section>}
-function Life(){const T=[[hpAsset('buggy-airborne.jpg'),'Buggy catching air on the hill','2/1'],[null,'Family at the overlook','1/1'],[hpAsset('pavilion-jeeps.jpg'),'Rigs lined up at the pavilion','1/1'],[null,'Campfire at the RV pads','1/1'],[hpAsset('event-crawl-crowd.jpg'),'Event crowd at the rock pit','1/1'],[null,'View across the property','2/1']];
- return <Section eyebrow="Life at Hawk Pride" title="Real dirt. Real people.">
-  <div style={{display:'grid',gridTemplateColumns:'repeat(4,minmax(0,1fr))',gridAutoRows:'minmax(160px,22vw)',gap:10,maxHeight:720}} className="proto-life">
+function Life(){const {go}=useApp();const T=[[hpAsset('buggy-airborne.jpg'),'Buggy catching air on the hill','2/1'],[null,'Family at the overlook','1/1'],[hpAsset('pavilion-jeeps.jpg'),'Rigs lined up at the pavilion','1/1'],[null,'Campfire at the RV pads','1/1'],[hpAsset('event-crawl-crowd.jpg'),'Event crowd at the rock pit','1/1'],[null,'View across the property','2/1']];
+ return <Section eyebrow="Life at Hawk Pride" title="Real dirt. Real people." action={<Button variant="outline" iconRight="arrow-right" onClick={()=>go('gallery')}>Gallery</Button>}>
+  <div style={{display:'grid',gridTemplateColumns:'repeat(4,minmax(0,1fr))',gridAutoRows:'clamp(150px,18vw,280px)',gap:10}} className="proto-life">
    {T.map(([s,a,r],i)=><div key={i} style={{gridColumn:r==='2/1'?'span 2':'span 1',position:'relative',borderRadius:'var(--radius-md)',overflow:'hidden'}}><Photo src={s||undefined} caption={s?undefined:a} alt={a} ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/></div>)}
   </div></Section>}
 function Final(){const {book}=useApp();

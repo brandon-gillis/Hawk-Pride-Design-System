@@ -1,9 +1,14 @@
 # Website prototype (owner demo)
-Click-through prototype of the rebuilt Hawk Pride site, built from the Drive "Website Rebuild Project" pack. Design only: no backend, no real payments, waivers or messages. Trip state lives in this browser (`hp-proto-trip`); footer **Reset demo** clears it.
+Click-through prototype of the rebuilt Hawk Pride site, built from the Drive "Website Handoff" pack (30 Sep, Replit-ready version). Design only: no backend, no real payments, waivers or messages. Trip state lives in this browser (`hp-proto-trip`); footer **Reset demo** clears it.
 
-Open `index.html`. Routes: `#/` home · `#/events` · `#/events/<id>` · `#/trails` · `#/trails/uphill-both-ways` · `#/fees` · `#/cabins` · `#/camping` · `#/groups` · `#/rules` (`/waiver`) · `#/contact` · `#/book/<dates|stay|site|party|admission|review>` · `#/checkout` · `#/waivers` · `#/confirmation` · `#/gate` (staff check-in demo).
+Open `index.html`. Routes: `#/` home · `#/events` · `#/events/<id>` · `#/trails` · `#/trails/uphill-both-ways` · `#/rates` (`#/fees` aliases here) · `#/cabins` · `#/camping` · `#/groups` · `#/rules` (`/waiver`) · `#/contact` · `#/faq` · `#/gallery` · `#/book/<dates|stay|site|party|admission|review>` · `#/checkout` · `#/waivers` · `#/confirmation` · `#/gate` (staff check-in demo) · anything else = 404.
 
-Files: `data.js` (all prices, inventory, events, trails + calc helpers), `ProtoShell.jsx`, `ProtoHome.jsx`, `Pages.jsx` (Fees, Cabins, Camping, Groups, Rules, Contact), `Explore.jsx` (Events, Trails, Uphill Both Ways), `BookParts.jsx` + `Book.jsx` (Book Now flow), `Checkout.jsx` (checkout, waivers, confirmation + gate pass), `Gate.jsx` (staff scan / lookup / check-in), `ProtoApp.jsx` (router).
+Files: `data.js` (all prices, inventory, events, trails + calc helpers), `ProtoShell.jsx`, `ProtoHome.jsx`, `Pages.jsx` (Rates, Cabins, Camping, Groups, Rules, Contact), `Explore.jsx` (Events, Trails, Uphill Both Ways), `Secondary.jsx` (FAQ, Gallery, 404, contact form), `BookParts.jsx` + `Book.jsx` (Book Now flow), `Checkout.jsx` (checkout incl. declined-payment demo, waivers, confirmation + gate pass), `Gate.jsx` (staff scan / lookup / check-in / roster download), `ProtoApp.jsx` (router).
+
+## 30 Sep pass (handoff pack)
+- Fees → **Rates** (nav, route, footer, links). FAQ and Gallery added as secondary pages (footer + contextual links, not primary nav). Contact form on Contact. 404 page.
+- Public name neutralised to "Hawk Pride" in copy (open decision). Privacy removed from footer (not assumed). About not created (open).
+- Checkout: declined-payment state keeps the trip. Gate: downloadable roster for outages.
 
 ## Demo script (~3 min)
 1. Home → hero, pathways, next event.

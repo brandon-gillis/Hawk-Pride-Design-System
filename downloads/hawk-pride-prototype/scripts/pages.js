@@ -4,8 +4,8 @@ const IMG='./assets/photos/';
 const D=()=>window.HP_DATA;
 function PriceTable({rows}){return <div style={{background:'var(--surface-card)',border:'1px solid var(--border-subtle)',borderRadius:'var(--radius-md)'}}>{rows.map(([l,v,note,to],i)=><div key={l} style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:16,padding:'16px 20px',borderTop:i?'1px solid var(--border-subtle)':0}}>
  <div><div style={{fontWeight:700,fontSize:17}}>{to?<TextLink to={to}>{l}</TextLink>:l}</div>{note&&<div style={{fontSize:14,color:'var(--text-muted)'}}>{note}</div>}</div><div className="hp-display" style={{fontSize:28,whiteSpace:'nowrap'}}>{v}</div></div>)}</div>}
-function Fees(){const {book,go}=useApp();const P=D().pricing;
- return <><PageHead eyebrow="Fees" title="What it costs to ride." intro="Pay per rider, per day. Kids ride free. Book ahead and skip the line at the gate." actions={[<Button key="a" size="lg" onClick={()=>book({stay:'none'})}>Buy Admission</Button>,<Button key="b" size="lg" variant="outline" onClick={()=>book()}>Book a trip</Button>]} image={IMG+'buggy-airborne.jpg'} imageAlt="Buggy on the hill" position="50% 45%"/>
+function Rates(){const {book,go}=useApp();const P=D().pricing;
+ return <><PageHead eyebrow="Rates" title="What it costs to come." intro="Pay per rider, per day. Kids ride free. Book ahead and skip the line at the gate." actions={[<Button key="a" size="lg" onClick={()=>book({stay:'none'})}>Buy Admission</Button>,<Button key="b" size="lg" variant="outline" onClick={()=>book()}>Book Now</Button>]} image={hpAsset('buggy-airborne.jpg')} imageAlt="Buggy on the hill" position="50% 45%"/>
   <Section eyebrow="Riding admission" title="Per rider, per day.">
    <div className="split" style={{alignItems:'start'}}>
     <PriceTable rows={[['Days 1 and 2',HP.money(P.day),'Per rider, per day'],['Day 3 and beyond',HP.money(P.dayLater),'Per rider, per day'],['Kids '+P.freeAge+' and under','Free','With a paying adult']]}/>
@@ -23,7 +23,7 @@ function Fees(){const {book,go}=useApp();const P=D().pricing;
    </div>
    <p style={{margin:'20px 0 0',color:'var(--text-muted)'}}>Overnight stays don’t include riding. Add admission for your riders in the same booking.</p></Section>
   <Section title="Event weekends" eyebrow="Events">
-   <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:20,flexWrap:'wrap'}}><p style={{margin:0,fontSize:17,maxWidth:620}}>Some events have their own pricing or packages. Check the event page for details.</p><Button variant="outline" iconRight="arrow-right" onClick={()=>go('events')}>Upcoming events</Button></div></Section></>}
+   <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:20,flexWrap:'wrap'}}><p style={{margin:0,fontSize:17,maxWidth:620}}>Event pricing may vary. Check the event page for details.</p><Button variant="outline" iconRight="arrow-right" onClick={()=>go('events')}>Upcoming events</Button></div></Section></>}
 function Cabins(){const {book}=useApp();const [cls,setCls]=React.useState(null);
  const C=HP.cabinClasses().map(c=>({t:c.label,p:c.price,sleeps:c.sleeps,beds:c.beds,d:c.desc}));
  const am=[['thermometer','A/C and heat'],['bed-double','Beds and bunks, bring linens'],['shower-head','Bathhouse nearby'],['flame','Fire ring and grill'],['square-parking','Parking for truck and trailer'],['utensils','Kitchen and bathroom details: to confirm']];
@@ -42,7 +42,7 @@ function Cabins(){const {book}=useApp();const [cls,setCls]=React.useState(null);
     <div className="hp-card" style={{overflow:'hidden'}}><div className="hp-topo" style={{aspectRatio:'16/9',display:'grid',placeItems:'center',color:'var(--text-muted)'}}><span style={{background:'var(--surface-card)',padding:'6px 12px',borderRadius:4,fontSize:14}}><Icon name="map" size={16}/> Cabins sit on the ridge above the pavilion</span></div></div>
    </div></Section></>}
 function Camping(){const {book}=useApp();const wkAv=HP.availability(HP.weekends(HP.today,1)[0]);
- const S=[{id:'powered',pts:['Designated level site','50A electric and water','Pull-through pads'],img:IMG+'pavilion-jeeps.jpg'},
+ const S=[{id:'powered',pts:['Designated level site','50A electric and water','Pull-through pads'],img:hpAsset('pavilion-jeeps.jpg')},
   {id:'dry',pts:['Designated level site','Generators allowed until quiet hours','East field, room to spread out']},
   {id:'primitive',pts:['Designated tent site','Fire ring','Bathhouse access']},
   {id:'anywhere',pts:['Set up in any open camping area','No site assignment','Not on trails, roads or pads']}];
@@ -56,7 +56,7 @@ function Camping(){const {book}=useApp();const wkAv=HP.availability(HP.weekends(
   <Section sunken eyebrow="Campground rules" title="Before you set up.">
    <div className="g3" style={{gap:'24px 32px'}}>{[['plug-zap','Generators','Off during quiet hours.'],['flame','Fires','In rings only. Put it out before bed.'],['moon','Quiet hours','10 PM to 7 AM. Event weekends may differ.'],['shower-head','Bathhouse','Showers and restrooms near the pavilion.'],['clock','Check-in / out','Check in from 2 PM. Out by noon.'],['dog','Pets','Welcome on a leash. Clean up after them.']].map(([i,t,d])=><div key={t} style={{display:'flex',gap:14}}><Icon name={i} size={24} style={{flex:'none'}}/><div><div style={{fontWeight:700,fontSize:17}}>{t}</div><div style={{color:'var(--text-muted)'}}>{d}</div></div></div>)}</div></Section></>}
 function Groups(){const {book}=useApp();const P=D().park;const W=HP.weekends(HP.add(HP.today,1),8).map(w=>({...w,ev:HP.eventFor(w.arrive,w.depart)}));
- return <><PageHead eyebrow="Groups" title="Bring the club." intro="Hawk Pride welcomes organized group rides. Pick a weekend, give us a call, and we’ll help you plan it." actions={[<a key="c" href={'tel:'+P.tel} className="hp-btn hp-btn--lg hp-btn--primary" style={{textDecoration:'none'}}><Icon name="phone" size={20}/>Call to Plan a Group Ride</a>]} image={IMG+'hillside-traffic.jpg'} imageAlt="A club riding together"/>
+ return <><PageHead eyebrow="Groups" title="Bring the club." intro="Hawk Pride welcomes organized group rides. Pick a weekend, give us a call, and we’ll help you plan it." actions={[<a key="c" href={'tel:'+P.tel} className="hp-btn hp-btn--lg hp-btn--primary" style={{textDecoration:'none'}}><Icon name="phone" size={20}/>Call to Plan a Group Ride</a>]} image={hpAsset('hillside-traffic.jpg')} imageAlt="A club riding together"/>
   <Section eyebrow="Who comes" title="Built for a crowd.">
    <div className="g4">{[['Off-road clubs','Monthly rides and club weekends.'],['Jeep groups','Including runs on Uphill Both Ways.'],['Side-by-side groups','Miles of trails wide enough for a convoy.'],['Family & friends','Reunions, birthdays and big crews.']].map(([t,d])=><div key={t} style={{borderTop:'3px solid var(--gold-400)',paddingTop:14}}><div style={{fontWeight:700,fontSize:18}}>{t}</div><div style={{color:'var(--text-muted)',marginTop:4}}>{d}</div></div>)}</div></Section>
   <Section sunken eyebrow="Open weekends" title="Weekends open for groups." intro="Regular weekends are the easiest to coordinate. Event weekends are busy, so call first.">
@@ -84,9 +84,11 @@ function Contact(){const P=D().park;
      <div><div className="hp-eyebrow" style={{color:'var(--gold-700)'}}>Address</div><div style={{fontSize:20,fontWeight:700,marginTop:6}}>{P.address}</div><div style={{marginTop:10}}><a className="hp-btn hp-btn--secondary" style={{textDecoration:'none'}} href={'https://maps.google.com/?q='+encodeURIComponent(P.address)} target="_blank" rel="noreferrer"><Icon name="navigation" size={18}/>Directions</a></div></div>
      <div><div className="hp-eyebrow" style={{color:'var(--gold-700)'}}>Park hours</div><div style={{display:'flex',flexDirection:'column',gap:8,marginTop:8,maxWidth:320,fontSize:17}}>{P.hours.map(([d,h])=><Row key={d} l={d} v={h}/>)}</div></div>
      <div><div className="hp-eyebrow" style={{color:'var(--gold-700)'}}>Follow along</div><div style={{display:'flex',gap:16,marginTop:8}}>{P.social.map(([l,i])=><span key={l} style={{display:'inline-flex',gap:8,alignItems:'center',fontWeight:600}}><Icon name={i} size={22}/>{l}</span>)}</div></div>
+     <div style={{fontSize:15,color:'var(--text-muted)'}}>Common questions about hours, rates and waivers are answered in the <TextLink to="faq">FAQ</TextLink>.</div>
      <Alert tone="danger" title="Emergency on the trail?">Call 911 first, then the park office. Tell them your trail number from the nearest sign.</Alert>
     </div>
-    <div className="hp-card" style={{overflow:'hidden'}}><div className="hp-topo" style={{aspectRatio:'4/3.4',display:'grid',placeItems:'center'}}><span style={{background:'var(--surface-card)',padding:'8px 14px',borderRadius:4,fontSize:14,display:'inline-flex',gap:8,alignItems:'center'}}><Icon name="map-pin" size={18}/>Map · Tuscumbia, AL</span></div></div>
+    <div style={{display:'flex',flexDirection:'column',gap:20}}><div className="hp-card" style={{overflow:'hidden'}}><div className="hp-topo" style={{aspectRatio:'16/9',display:'grid',placeItems:'center'}}><span style={{background:'var(--surface-card)',padding:'8px 14px',borderRadius:4,fontSize:14,display:'inline-flex',gap:8,alignItems:'center'}}><Icon name="map-pin" size={18}/>Map · Tuscumbia, AL</span></div><div className="hp-card__body" style={{fontSize:15,color:'var(--text-muted)'}}>GPS tip: search the street address, then follow the park signs from Hester Porter Road. Entrance guidance to confirm with the owner.</div></div>
+     <window.ContactForm/></div>
    </div></Section></>}
-Object.assign(window,{Fees,Cabins,Camping,Groups,Rules,Contact});
+Object.assign(window,{Rates,Cabins,Camping,Groups,Rules,Contact});
 })();

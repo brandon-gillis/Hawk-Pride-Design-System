@@ -3,7 +3,7 @@ const {Photo,Button,Icon,Badge,DifficultyBadge}=window.DS;
 const IMG='./assets/photos/';
 function Hero(){const {book,go}=useApp();const ev=window.HP_DATA.events[0];
  return <div style={{position:'relative',minHeight:'min(80vh,700px)',display:'flex',alignItems:'flex-end',background:'var(--black-900)'}}>
-  <Photo src={IMG+'hillside-traffic.jpg'} alt="A line of side-by-sides and buggies climbing a dirt hill through the trees" position="50% 35%" ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/>
+  <Photo src={hpAsset('hillside-traffic.jpg')} alt="A line of side-by-sides and buggies climbing a dirt hill through the trees" position="50% 35%" ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/>
   <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, rgba(13,13,11,.94) 0%, rgba(13,13,11,.6) 50%, rgba(13,13,11,.2) 100%), linear-gradient(to right, rgba(13,13,11,.6) 0%, rgba(13,13,11,0) 65%)',pointerEvents:'none'}}/>
   <div style={{position:'relative',width:'100%',maxWidth:'var(--container-max)',margin:'0 auto',padding:'120px var(--container-pad) 48px',display:'flex',justifyContent:'space-between',alignItems:'flex-end',gap:32,flexWrap:'wrap'}}>
    <div style={{maxWidth:780}}>
@@ -17,7 +17,7 @@ function Hero(){const {book,go}=useApp();const ev=window.HP_DATA.events[0];
     <span className="hp-eyebrow" style={{color:'var(--gold-400)'}}>Next big weekend</span><span className="hp-display" style={{fontSize:26,lineHeight:1}}>{ev.title}</span><span style={{fontSize:14,color:'var(--stone-200)'}}>{HP.range(ev.start,ev.end)} · View event →</span></button>
   </div></div>}
 function Pathways(){const {go}=useApp();
- const P=[['Trail riding','From wooded loops to serious rock.','trails',IMG+'pavilion-jeeps.jpg','Jeeps on an easy trail by the pavilion'],['Events','Race weekends, club rides and holiday crowds.','events',IMG+'event-crawl-crowd.jpg','Crowd watching a rock crawl'],['Cabins & camping','Ride all day. Stay all weekend.','cabins',null,'Cabin porch at dusk'],['Group rides','Bring the club. We’ll save you a weekend.','groups',IMG+'hillside-traffic.jpg','A group of rigs climbing together']];
+ const P=[['Trail riding','From wooded loops to serious rock.','trails',hpAsset('pavilion-jeeps.jpg'),'Jeeps on an easy trail by the pavilion'],['Events','Race weekends, club rides and holiday crowds.','events',hpAsset('event-crawl-crowd.jpg'),'Crowd watching a rock crawl'],['Cabins & camping','Ride all day. Stay all weekend.','cabins',null,'Cabin porch at dusk'],['Group rides','Bring the club. We’ll save you a weekend.','groups',hpAsset('hillside-traffic.jpg'),'A group of rigs climbing together']];
  return <Section eyebrow="Find your weekend" title="There’s a Hawk Pride for the way you ride.">
   <div className="g4">{P.map(([t,d,to,img,alt],i)=><a key={t} href={'#/'+to} onClick={e=>{e.preventDefault();go(to)}} style={{position:'relative',display:'block',color:'var(--stone-50)',textDecoration:'none',borderRadius:'var(--radius-md)',overflow:'hidden',aspectRatio:i%2?'3/4.2':'3/4',marginTop:i%2?32:0,background:'var(--black-900)'}}>
    <Photo src={img||undefined} caption={img?undefined:alt} alt={alt} ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/>
@@ -28,7 +28,7 @@ function Proof(){const {go}=useApp();
  const pts=[['Easy to extreme','Wooded loops for the family, ledges for the buggy.'],['Signature rock','Technical crawling and named obstacles.'],['Uphill Both Ways','A Jeep Badge of Honor trail.','trails/uphill-both-ways'],[HP.count('cabin')+' cabins · '+(HP.count('powered')+HP.count('dry'))+' RV pads','Plus primitive sites and open camping.'],['Big event weekends','Hillclimbs, rock crawls and club rides.'],['Groups welcome','Clubs, families and friends.','groups']];
  return <section className="hp-on-dark" style={{background:'var(--black-950)',color:'var(--stone-50)',overflow:'hidden'}}>
   <div className="split" style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'0 var(--container-pad)',alignItems:'stretch'}}>
-   <div style={{position:'relative',minHeight:460,marginLeft:'calc(-1 * var(--container-pad))'}}><Photo src={IMG+'rock-ledge-buggies.jpg'} alt="Buggies working up a rock ledge" ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/></div>
+   <div style={{position:'relative',minHeight:460,marginLeft:'calc(-1 * var(--container-pad))'}}><Photo src={hpAsset('rock-ledge-buggies.jpg')} alt="Buggies working up a rock ledge" ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/></div>
    <div style={{padding:'64px 0'}}>
     <div className="hp-eyebrow" style={{color:'var(--gold-400)'}}>The mountain</div><span className="hp-rule" style={{margin:'8px 0 12px'}}/>
     <h2 className="hp-display" style={{margin:0,fontSize:'var(--fs-display-l)',lineHeight:.95}}>One mountain. Every kind of ride.</h2>
@@ -49,9 +49,9 @@ function Stay(){const {go,book}=useApp();const C=window.HP_DATA.categories;
   <div className="g3">{S.map(([t,p,d,to,stay])=><div key={t} className="hp-card"><Photo caption={t} ratio="4/3"/><div className="hp-card__body">
    <h3 className="hp-card__title">{t}</h3><div style={{fontWeight:700}}>{p}</div><p style={{margin:0,color:'var(--text-muted)',fontSize:15}}>{d}</p>
    <div style={{display:'flex',gap:10,marginTop:6,flexWrap:'wrap'}}><Button size="sm" onClick={()=>book({stay})}>Check availability</Button><Button size="sm" variant="ghost" onClick={()=>go(to)}>Details</Button></div></div></div>)}</div></Section>}
-function Life(){const T=[[IMG+'buggy-airborne.jpg','Buggy catching air on the hill','2/1'],[null,'Family at the overlook','1/1'],[IMG+'pavilion-jeeps.jpg','Rigs lined up at the pavilion','1/1'],[null,'Campfire at the RV pads','1/1'],[IMG+'event-crawl-crowd.jpg','Event crowd at the rock pit','1/1'],[null,'View across the property','2/1']];
- return <Section eyebrow="Life at Hawk Pride" title="Real dirt. Real people.">
-  <div style={{display:'grid',gridTemplateColumns:'repeat(4,minmax(0,1fr))',gridAutoRows:'minmax(160px,22vw)',gap:10,maxHeight:720}} className="proto-life">
+function Life(){const {go}=useApp();const T=[[hpAsset('buggy-airborne.jpg'),'Buggy catching air on the hill','2/1'],[null,'Family at the overlook','1/1'],[hpAsset('pavilion-jeeps.jpg'),'Rigs lined up at the pavilion','1/1'],[null,'Campfire at the RV pads','1/1'],[hpAsset('event-crawl-crowd.jpg'),'Event crowd at the rock pit','1/1'],[null,'View across the property','2/1']];
+ return <Section eyebrow="Life at Hawk Pride" title="Real dirt. Real people." action={<Button variant="outline" iconRight="arrow-right" onClick={()=>go('gallery')}>Gallery</Button>}>
+  <div style={{display:'grid',gridTemplateColumns:'repeat(4,minmax(0,1fr))',gridAutoRows:'clamp(150px,18vw,280px)',gap:10}} className="proto-life">
    {T.map(([s,a,r],i)=><div key={i} style={{gridColumn:r==='2/1'?'span 2':'span 1',position:'relative',borderRadius:'var(--radius-md)',overflow:'hidden'}}><Photo src={s||undefined} caption={s?undefined:a} alt={a} ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/></div>)}
   </div></Section>}
 function Final(){const {book}=useApp();

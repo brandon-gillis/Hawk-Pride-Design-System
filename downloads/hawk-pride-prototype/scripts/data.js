@@ -1,7 +1,8 @@
 // Prototype data. One source of truth: every page reads prices, inventory and dates from here.
 // SAMPLE = placeholder values to confirm with the owner (see README).
 window.HP_DATA={
- park:{name:'Hawk Pride Offroad Adventure Park',address:'589 Hester Porter Road, Tuscumbia, AL 35674',phone:'(256) 349-4150',tel:'+12563494150',email:'info@hawkpridemountainoffroad.com',
+ // name: public business name is an OPEN decision (pack AUTHORITY-AND-DECISIONS). Neutral "Hawk Pride" until approved.
+ park:{name:'Hawk Pride',address:'589 Hester Porter Road, Tuscumbia, AL 35674',phone:'(256) 349-4150',tel:'+12563494150',email:'info@hawkpridemountainoffroad.com',
   hours:[['Fri – Sat','8 AM – 10 PM'],['Sun','8 AM – 6 PM'],['Mon – Thu','Closed']],checkin:'2 PM',checkout:'Noon',
   social:[['Facebook','facebook'],['Instagram','instagram'],['YouTube','youtube']]},
  pricing:{day:20,dayLater:15,freeAge:12,spectator:null},
@@ -21,23 +22,23 @@ window.HP_DATA={
  booked:['c1','c2','c4','c5','c6','c8','r1','r3','r5'],
  bookedEvent:['c1','c2','c3','c4','c5','c6','c7','c8','r1','r2','r3','r4','r5','r6','r7','r8','d1','d2','d3'],
  events:[
-  {id:'ratp',title:'Ride at the Pride',start:'2027-04-23',end:'2027-04-25',type:'Park ride',status:'featured',image:'./assets/photos/event-crawl-crowd.jpg',
+  {id:'ratp',title:'Ride at the Pride',start:'2027-04-23',end:'2027-04-25',type:'Park ride',status:'featured',image:hpAsset('event-crawl-crowd.jpg'),
    hook:'Our spring kickoff. Every trail open, vendors on the hill and a full campground.',
    desc:'Three days of riding across the whole mountain, from the wooded loops to the rock. Bring the family, bring the club, bring the rig.',
    facts:[['Dates','Fri – Sun'],['Gates','8 AM daily'],['Vehicles','All welcome'],['Spectators','Welcome']],
    schedule:[['Friday','Gates 8 AM · Open riding · Campground fills'],['Saturday','Open riding · Vendor row · Night ride'],['Sunday','Open riding until 6 PM']],jeep:true},
-  {id:'dsz',title:"Down South Zukin'",start:'2027-05-14',end:'2027-05-15',type:'Club ride',image:'./assets/photos/hillside-traffic.jpg',
+  {id:'dsz',title:"Down South Zukin'",start:'2027-05-14',end:'2027-05-15',type:'Club ride',image:hpAsset('hillside-traffic.jpg'),
    hook:'Suzuki club weekend. Small rigs, big lines.',desc:'A club-hosted ride for Suzuki owners and friends. Open to the public on standard admission.',
    facts:[['Dates','Fri – Sat'],['Hosted by','Club organizers'],['Vehicles','All welcome']],schedule:[['Friday','Check-in and trail rides'],['Saturday','Group rides and cookout']]},
-  {id:'mem',title:'Memorial Day Weekend',start:'2027-05-28',end:'2027-05-31',type:'Holiday ride',status:'few',image:'./assets/photos/pavilion-jeeps.jpg',
+  {id:'mem',title:'Memorial Day Weekend',start:'2027-05-28',end:'2027-05-31',type:'Holiday ride',status:'few',image:hpAsset('pavilion-jeeps.jpg'),
    hook:'Four days open. The busiest campground of the year.',desc:'The park stays open through Monday. Cabins and RV sites go first, so book early.',
    facts:[['Dates','Fri – Mon'],['Gates','8 AM daily'],['Vehicles','All welcome']],schedule:[['Fri – Mon','Open riding every day']]},
   {id:'jul',title:'4th of July Weekend',start:'2027-07-02',end:'2027-07-05',type:'Holiday ride',image:null,
    hook:'Ride all day. Watch the sky light up at night.',desc:'Holiday weekend with extra open days.',facts:[['Dates','Fri – Mon'],['Vehicles','All welcome']],schedule:[['Fri – Mon','Open riding every day']]},
-  {id:'srrs',title:'SRRS Hillclimb',start:'2027-08-13',end:'2027-08-14',type:'Hillclimb',image:'./assets/photos/buggy-airborne.jpg',
+  {id:'srrs',title:'SRRS Hillclimb',start:'2027-08-13',end:'2027-08-14',type:'Hillclimb',image:hpAsset('buggy-airborne.jpg'),
    hook:'Steep, loose and loud. Bring a chair.',desc:'Sanctioned hillclimb racing on the big hill. Spectators welcome all weekend.',
    facts:[['Dates','Fri – Sat'],['Racers','Register with the series'],['Spectators','Welcome']],schedule:[['Friday','Practice runs'],['Saturday','Racing and awards']]},
-  {id:'mk',title:'Mardi Krawl',start:'2027-08-26',end:'2027-08-29',type:'Rock crawl',status:'soldout',image:'./assets/photos/rock-ledge-buggies.jpg',
+  {id:'mk',title:'Mardi Krawl',start:'2027-08-26',end:'2027-08-29',type:'Rock crawl',status:'soldout',image:hpAsset('rock-ledge-buggies.jpg'),
    hook:'Four days on the hardest rock we have.',desc:'Club-run rock crawl. Registration is through the club and is full for this year.',
    facts:[['Dates','Thu – Sun'],['Vehicles','Built rigs'],['Registration','Full']],schedule:[['Thu – Sun','Guided crawls and open riding']],jeep:true}],
  trails:[{number:'#07',name:'Cane Creek Loop',level:'easy',vehicles:'All vehicles',length:'3.2 mi'},

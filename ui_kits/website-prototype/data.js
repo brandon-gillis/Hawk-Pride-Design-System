@@ -1,7 +1,8 @@
 // Prototype data. One source of truth: every page reads prices, inventory and dates from here.
 // SAMPLE = placeholder values to confirm with the owner (see README).
 window.HP_DATA={
- park:{name:'Hawk Pride Offroad Adventure Park',address:'589 Hester Porter Road, Tuscumbia, AL 35674',phone:'(256) 349-4150',tel:'+12563494150',email:'info@hawkpridemountainoffroad.com',
+ // name: public business name is an OPEN decision (pack AUTHORITY-AND-DECISIONS). Neutral "Hawk Pride" until approved.
+ park:{name:'Hawk Pride',address:'589 Hester Porter Road, Tuscumbia, AL 35674',phone:'(256) 349-4150',tel:'+12563494150',email:'info@hawkpridemountainoffroad.com',
   hours:[['Fri – Sat','8 AM – 10 PM'],['Sun','8 AM – 6 PM'],['Mon – Thu','Closed']],checkin:'2 PM',checkout:'Noon',
   social:[['Facebook','facebook'],['Instagram','instagram'],['YouTube','youtube']]},
  pricing:{day:20,dayLater:15,freeAge:12,spectator:null},
