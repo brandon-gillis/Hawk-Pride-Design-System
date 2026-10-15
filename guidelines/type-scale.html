@@ -1,4 +1,4 @@
-<!-- @dsCard group="Type" viewport="760x960" name="Type scale" subtitle="Final ladder: size (mobile → desktop), line-height, tracking, weight" -->
+<!-- @dsCard group="Type" viewport="760x960" name="Type scale" subtitle="Final ladder: size (mobile → desktop), line-height, tracking, weight. Admin scope runs one step up." -->
 <!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"><style>body{margin:0;padding:20px;background:var(--bg-page);font-family:var(--font-body);color:var(--text-body)}a{color:var(--text-link)}a:hover{color:var(--text-link-hover)}
 .r{display:grid;grid-template-columns:128px minmax(0,1fr);gap:16px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border-subtle)}.r:last-child{border:0}
 .m{font:500 11px/1.4 var(--font-mono);color:var(--text-muted)}.m b{display:block;color:var(--text-strong);font-weight:600}
@@ -14,6 +14,9 @@ p{margin:0;max-width:60ch}
 <div class="r"><div class="m"><b>eyebrow</b>13 · lh 1.2<br>700 · .14em · display</div><div class="hp-eyebrow" style="color:var(--gold-700)">Northwest Alabama</div></div>
 <div class="r"><div class="m"><b>body-l</b>18 · lh 1.55<br>400 · 0em</div><p style="font-size:var(--fs-body-l);line-height:var(--lh-body-l)">Over 1,000 acres and 120+ trails, from mild to wild.</p></div>
 <div class="r"><div class="m"><b>body</b>16 · lh 1.5<br>400 · 0em</div><p style="font-size:var(--fs-body);line-height:var(--lh-body)">Open Friday through Sunday. Check the calendar for holiday rides.</p></div>
+<div class="r"><div class="m"><b>body-s</b>15 · lh 1.5<br>400 · 0em</div><p style="font-size:var(--fs-body-s);line-height:var(--lh-body-s)">Card copy, alerts, footer links. Sleeps 4, bunk room and porch.</p></div>
 <div class="r"><div class="m"><b>small</b>14 · lh 1.45<br>400 · 0em</div><p style="font-size:var(--fs-small);line-height:var(--lh-small);color:var(--text-muted)">Children under 10 ride free.</p></div>
 <div class="r"><div class="m"><b>caption</b>12 · lh 1.35<br>500 · .01em</div><p style="font-size:var(--fs-caption);line-height:var(--lh-caption);font-weight:500;letter-spacing:var(--ls-caption);color:var(--text-muted)">Photo: Rock ledge, Trail 17</p></div>
+<div class="r"><div class="m"><b>button / -lg</b>17 · 19<br>700 · .05em · display</div><div style="display:flex;gap:12px;flex-wrap:wrap"><span class="hp-btn hp-btn--primary">Book now</span><span class="hp-btn hp-btn--primary hp-btn--lg">Book now</span></div></div>
+<div class="r"><div class="m"><b>Admin scope</b>.adm overrides</div><p style="font-size:var(--fs-small);line-height:var(--lh-small);color:var(--text-muted)">Staff tools re-declare the small end one step up (caption 13, eyebrow 14, small 15, body-s 16, body 17, button-lg 20, controls 48px). Components inherit it; never override component font sizes directly. Text never goes below 12px; running text never below 14px.</p></div>
 </body></html>

@@ -1,0 +1,10 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{margin:0;background:#eee;font:12px/1.4 monospace}.w{display:flex;flex-wrap:wrap;gap:8px;padding:8px}iframe{width:390px;height:700px;border:0;position:absolute;left:-9999px}pre{white-space:pre-wrap;margin:0 0 6px;padding:6px;background:#fff;width:100%}</style></head><body><div id="out"></div><div class="w" id="w"></div><script>
+const R=(new URLSearchParams(location.search).get('r')||'home,trails,trails/jeep-badge-of-honor/uphill-both-ways,cabins,camping,rates,events,events/ride-at-the-pride,groups,rules,contact,faq,gallery').split(',');
+const w=document.getElementById('w'),out=document.getElementById('out');
+R.forEach(r=>{const f=document.createElement('iframe');f.src='../ui_kits/website-prototype/index.html#/'+(r==='home'?'':r);f.dataset.r=r;w.appendChild(f)});
+window.audit=()=>{out.innerHTML='';[...w.querySelectorAll('iframe')].forEach(f=>{const d=f.contentDocument;if(!d)return;const W=d.documentElement.clientWidth;const over=[],small=[],taps=[];
+d.querySelectorAll('body *').forEach(el=>{const b=el.getBoundingClientRect();if(!b.width)return;const cs=getComputedStyle(el);if(b.right>W+1&&cs.position!=='fixed'){let p=el.parentElement,clip=false;while(p&&p!==d.body){const pc=getComputedStyle(p);if(pc.overflowX!=='visible'){clip=true;break}p=p.parentElement}if(!clip)over.push((el.className||el.tagName)+'').toString()}
+const t=[...el.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().length>3);if(t&&parseFloat(cs.fontSize)<14)small.push(parseFloat(cs.fontSize)+':'+el.textContent.trim().slice(0,24));
+if(el.matches('a,button,input,select,[role=tab]')&&(b.height<40)&&b.width>0)taps.push(Math.round(b.height)+':'+(el.textContent.trim().slice(0,18)||el.getAttribute('aria-label')))});
+const pre=document.createElement('pre');pre.textContent='## '+f.dataset.r+' docW='+d.documentElement.scrollWidth+'/'+W+'\nOVERFLOW('+over.length+'): '+[...new Set(over)].slice(0,8).join(' | ')+'\nSMALL('+small.length+'): '+[...new Set(small)].slice(0,10).join(' | ')+'\nTAPS<40('+taps.length+'): '+[...new Set(taps)].slice(0,10).join(' | ');out.appendChild(pre)})};
+</script></body></html>

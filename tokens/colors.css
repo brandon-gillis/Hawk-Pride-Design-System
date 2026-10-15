@@ -9,10 +9,10 @@
 /* Earth — supporting tones pulled from the badge's dirt spray; use sparingly */
 --dirt-300:#C9A66B;--dirt-500:#8C6A3A;--dirt-700:#5A4222;
 /* Status */
---success-500:#2B7541;--success-100:#DDEEE1;
+--success-900:#1D4D2B;--success-500:#2B7541;--success-100:#DDEEE1;
 --warning-500:#946100;--warning-100:#FFF2B3;
---danger-500:#C0281E;--danger-100:#F8DEDB;
---info-500:#2A6A8A;--info-100:#DCEAF1;
+--danger-900:#7A1A13;--danger-500:#C0281E;--danger-300:#FF8A80;--danger-100:#F8DEDB;
+--info-900:#173F52;--info-500:#2A6A8A;--info-100:#DCEAF1;
 /* Trail difficulty — standard trail-sign convention */
 --trail-easy:#2F8F4E;--trail-moderate:#2F6DB5;--trail-difficult:#151512;--trail-extreme:#C62828;
 

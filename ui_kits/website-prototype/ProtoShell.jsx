@@ -1,54 +1,75 @@
 (()=>{
-const {SiteHeader,Alert,Icon,Button,IconButton}=window.DS;
+const D=window.DS;const {SiteHeader,Alert,Icon,Button,IconButton,Photo}=D;
 const LINKS=[{id:'home',label:'Home'},{id:'events',label:'Events'},{id:'trails',label:'Trails'},{id:'rates',label:'Rates'},{id:'cabins',label:'Cabins'},{id:'camping',label:'Camping'},{id:'groups',label:'Groups'},{id:'rules',label:'Rules'},{id:'contact',label:'Contact'}];
 const Ctx=React.createContext(null);const useApp=()=>React.useContext(Ctx);
 const LOGO=hpAsset('logo');
-function MobileMenu({open,onClose}){const {go,book}=useApp();if(!open)return null;
- return <div className="hp-on-dark" style={{position:'fixed',inset:0,zIndex:60,background:'var(--black-950)',color:'var(--stone-50)',display:'flex',flexDirection:'column',padding:'16px var(--container-pad)',overflow:'auto'}}>
-  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',height:48}}><span className="hp-header__brand"><img src={LOGO} alt="" style={{height:42}}/><span className="hp-header__name" style={{fontSize:16}}><span>Hawk Pride</span><span>Offroad</span></span></span><IconButton icon="x" label="Close" variant="dark" onClick={onClose}/></div>
-  <nav style={{display:'flex',flexDirection:'column',marginTop:16}}>{LINKS.map(l=><button key={l.id} onClick={()=>{go(l.id);onClose()}} className="hp-display" style={{background:'none',border:0,borderBottom:'1px solid var(--border-inverse)',color:'var(--stone-50)',fontSize:34,textAlign:'left',padding:'10px 0',cursor:'pointer'}}>{l.label}</button>)}</nav>
-  <div style={{marginTop:24}}><Button block size="lg" onClick={()=>{book();onClose()}}>Book Now</Button></div></div>}
-function Shell({page,children}){const {go,book}=useApp();const [m,setM]=React.useState(false);const P=window.HP_DATA.park;
- return <div className="hp-root" style={{background:'var(--bg-page)',minHeight:'100vh'}}>
+const cx=(...a)=>a.filter(Boolean).join(' ');
+/* Page patterns. Same markup and props as the DS components of the same name (components/layout, content, core, feedback); the DS version is used once the bundle includes it. */
+const ds=(n,local)=>D[n]||local;
+const Section=ds('Section',function Section({eyebrow,title,intro,action,dark,sunken,id,className,children,level=2}){const H='h'+level;
+ return <section id={id} className={cx('hp-section',dark&&'hp-section--dark hp-on-dark',sunken&&'hp-section--sunken',className)}><div className="hp-container">
+  {(title||eyebrow)&&<div className="hp-sechead"><div className="hp-sechead__text">{eyebrow&&<><div className="hp-eyebrow hp-eyebrow--accent">{eyebrow}</div><span className="hp-rule"/></>}{title&&<H className="hp-display hp-h1">{title}</H>}{intro&&<p className="hp-lede">{intro}</p>}</div>{action}</div>}
+  {children}</div></section>});
+const PageHead=ds('PageHero',function PageHero({eyebrow,title,intro,actions,image,imageAlt,position}){const media=image!==undefined;
+ return <div className="hp-pagehero hp-on-dark"><div className={cx('hp-container hp-pagehero__inner',!media&&'hp-pagehero__inner--text')}>
+  <div className="hp-pagehero__text">{eyebrow&&<><div className="hp-eyebrow hp-eyebrow--accent">{eyebrow}</div><span className="hp-rule"/></>}
+   <h1 className="hp-display hp-display-l">{title}</h1>
+   {intro&&<p className="hp-hero__lede">{intro}</p>}
+   {actions&&<div className="hp-actions">{actions}</div>}</div>
+  {media&&<div className="hp-pagehero__media"><Photo src={image||undefined} caption={image?undefined:imageAlt} alt={imageAlt} position={position} ratio="auto" className="hp-photo--fill"/></div>}
+ </div></div>});
+const CtaBand=ds('CtaBand',function CtaBand({title,text,action,tone='dark',eyebrow}){
+ return <section className={cx('hp-band hp-band--'+tone,tone==='dark'&&'hp-on-dark')}><div className="hp-container hp-band__inner">
+  <div>{eyebrow&&<div className="hp-eyebrow hp-eyebrow--accent">{eyebrow}</div>}<h2 className="hp-display hp-h2">{title}</h2>{text&&<p className="hp-band__text">{text}</p>}</div>
+  {action}</div></section>});
+const Row=ds('SummaryRow',function SummaryRow({label,value,total,muted}){return <div className={cx('hp-kv',total&&'hp-kv--total',muted&&'hp-kv--muted')}><span>{label}</span><span className="hp-kv__v">{value}</span></div>});
+const Callout=ds('Callout',function Callout({icon='info',children}){return <div className="hp-callout"><Icon name={icon} size={18}/><span>{children}</span></div>});
+const Feature=ds('Feature',function Feature({icon,title,children,rule}){return <div className={cx('hp-feature',rule&&'hp-feature--'+rule)}>{icon&&!rule&&<Icon name={icon} size={24}/>}<div><div className="hp-title">{title}</div>{children&&<div className="hp-feature__text">{children}</div>}</div></div>});
+const PriceList=ds('PriceList',function PriceList({rows=[]}){return <div className="hp-pricelist">{rows.map((r,i)=><div key={i} className="hp-pricelist__row"><div><div className="hp-title">{r.label}</div>{r.note&&<div className="hp-pricelist__note">{r.note}</div>}</div><div className="hp-pricelist__value">{r.value}</div></div>)}</div>});
+const Chip=ds('Chip',function Chip({pressed,onClick,icon,children}){return <button type="button" className="hp-chip" aria-pressed={!!pressed} onClick={onClick}>{icon&&<Icon name={icon} size={16}/>}{children}</button>});
+const Accordion=ds('Accordion',function Accordion({items=[],heading,defaultOpen=null,value,onChange}){const [own,setOwn]=React.useState(defaultOpen);const open=value!==undefined?value:own;const set=v=>{onChange?onChange(v):setOwn(v)};const uid=React.useId();
+ return <div className="hp-accordion__group">{heading&&<h2 className="hp-display hp-h3 hp-heading-rule">{heading}</h2>}
+  {items.map(it=>{const on=open===it.id,pid=uid+'-'+it.id;return <div key={it.id} className="hp-accordion__item">
+   <button type="button" className="hp-accordion__btn" aria-expanded={on} aria-controls={pid} onClick={()=>set(on?null:it.id)}>{it.title}<Icon name={on?'minus':'plus'} size={20}/></button>
+   <div id={pid} className="hp-accordion__panel" hidden={!on}>{typeof it.content==='string'?<p>{it.content}</p>:it.content}</div></div>})}
+ </div>});
+const Textarea=ds('Textarea',function Textarea({label,hint,error,count,id,rows=4,value,className,...rest}){const fid=id||('ta-'+(label||'').replace(/\W+/g,'-').toLowerCase());const len=(value||'').length,over=count&&len>count;
+ return <div className={cx('hp-field',error&&'hp-field--error',className)}>{label&&<label className="hp-field__label" htmlFor={fid}>{label}</label>}{hint&&<div className="hp-field__hint hp-field__hint--top" id={fid+'-hint'}>{hint}</div>}
+  <textarea id={fid} rows={rows} value={value} aria-invalid={error?true:undefined} aria-describedby={[hint&&fid+'-hint',error&&fid+'-err'].filter(Boolean).join(' ')||undefined} {...rest}/>
+  {(error||count)&&<div className="hp-field__foot">{error?<span className="hp-field__error" id={fid+'-err'}>{error}</span>:<span/>}{count&&<span className={cx('hp-field__count',over&&'is-over')}>{len}/{count}</span>}</div>}</div>});
+/* App-level link: routes through the hash router */
+function TextLink({to,href,children,onClick,iconRight,...rest}){const {go}=useApp();
+ return <a href={href||(to?'#/'+to:'#')} className={cx('hp-textlink',iconRight&&'hp-textlink--icon')} onClick={href?onClick:e=>{e.preventDefault();onClick?onClick():go(to)}} {...rest}>{children}{iconRight&&<Icon name={iconRight} size={16}/>}</a>}
+
+function MobileMenu({open,onClose,page}){const {go,book}=useApp();const ref=React.useRef(null);
+ React.useEffect(()=>{if(!open)return;const k=e=>{if(e.key==='Escape')onClose()};document.addEventListener('keydown',k);document.body.style.overflow='hidden';const f=ref.current&&ref.current.querySelector('button');f&&f.focus();return()=>{document.removeEventListener('keydown',k);document.body.style.overflow=''}},[open]);
+ if(!open)return null;
+ return <div ref={ref} className="mmenu hp-on-dark" role="dialog" aria-modal="true" aria-label="Menu">
+  <div className="mmenu__top"><span className="hp-header__brand"><img src={LOGO} alt="" className="hp-header__logo"/><span className="hp-header__name"><span>Hawk Pride</span><span>Offroad</span></span></span><IconButton icon="x" label="Close menu" variant="dark" onClick={onClose}/></div>
+  <nav className="mmenu__nav" aria-label="Main">{LINKS.map(l=><button key={l.id} type="button" aria-current={page===l.id?'page':undefined} onClick={()=>{go(l.id);onClose()}} className="hp-display mmenu__link">{l.label}</button>)}</nav>
+  <div className="mmenu__cta"><Button block size="lg" onClick={()=>{book();onClose()}}>Book Now</Button></div></div>}
+function Shell({page,children}){const {go,book}=useApp();const [m,setM]=React.useState(false);
+ return <div className="hp-root">
   {HP.notices('site').map(n=><Alert key={n.title} tone={n.tone} title={n.title}>{n.text}</Alert>)}
   <div className="proto-header"><SiteHeader logoSrc={LOGO} links={LINKS} current={page} onNavigate={go} onBook={()=>book()} ctaLabel="Book Now" onMenu={()=>setM(true)}/></div>
-  <MobileMenu open={m} onClose={()=>setM(false)}/>
+  <MobileMenu open={m} page={page} onClose={()=>setM(false)}/>
   <main>{children}</main>
   <Footer/></div>}
 function Footer(){const {go,reset}=useApp();const P=window.HP_DATA.park;
- const col=(t,items)=><div style={{display:'flex',flexDirection:'column',gap:8}}><div className="hp-eyebrow" style={{color:'var(--gold-400)'}}>{t}</div>{items}</div>;
- const a=(l,id)=><a key={l} href={'#/'+id} onClick={e=>{e.preventDefault();go(id)}} className="proto-footlink">{l}</a>;
- return <footer style={{background:'var(--black-950)',color:'var(--stone-50)',borderTop:'3px solid var(--gold-400)'}}>
-  <div style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'48px var(--container-pad) 28px',display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(170px,1fr))',gap:32}}>
-   <div style={{display:'flex',flexDirection:'column',gap:14}}><img src={LOGO} alt="Hawk Pride" style={{width:150}}/><div className="hp-display" style={{color:'var(--gold-400)',fontSize:22}}>Go conquer something.</div></div>
-   {col('Visit',[<span key="a" className="proto-foottext"><Icon name="map-pin" size={18}/>{P.address}</span>,<a key="p" href={'tel:'+P.tel} className="proto-footlink"><Icon name="phone" size={18}/>{P.phone}</a>,<a key="e" href={'mailto:'+P.email} className="proto-footlink"><Icon name="mail" size={18}/>Email us</a>])}
+ const col=(t,items)=><div className="hp-footer__col"><div className="hp-eyebrow">{t}</div>{items}</div>;
+ const a=(l,id)=><a key={l} href={'#/'+id} onClick={e=>{e.preventDefault();go(id)}} className="hp-footer__link">{l}</a>;
+ return <footer className="hp-footer">
+  <div className="hp-container hp-footer__grid">
+   <div className="hp-footer__brand"><img src={LOGO} alt="Hawk Pride Offroad" className="hp-footer__logo"/><div className="hp-display hp-footer__tagline">Go conquer something.</div></div>
+   {col('Visit',[<span key="a" className="hp-footer__text"><Icon name="map-pin" size={18}/>{P.address}</span>,<a key="p" href={'tel:'+P.tel} className="hp-footer__link"><Icon name="phone" size={18}/>{P.phone}</a>,<a key="e" href={'mailto:'+P.email} className="hp-footer__link"><Icon name="mail" size={18}/>Email us</a>])}
    {col('Park',[a('Events','events'),a('Trails','trails'),a('Rates','rates'),a('Cabins','cabins'),a('Camping','camping'),a('Groups','groups')])}
-   {col('Before you come',[a('Rules','rules'),a('Sign a waiver','rules/waiver'),a('Find my trip','confirmation'),a('FAQ','faq'),a('Gallery','gallery'),a('Contact','contact')])}
-   {col('Hours',P.hours.map(([d,h])=><span key={d} className="proto-foottext" style={{justifyContent:'space-between',maxWidth:200}}><span>{d}</span><span>{h}</span></span>))}
+   {col('Before you come',[a('Rules','rules'),<a key="w" href={P.waiver} target="_blank" rel="noopener" className="hp-footer__link">Sign a waiver</a>,a('Find my trip','confirmation'),a('FAQ','faq'),a('Gallery','gallery'),a('Contact','contact')])}
+   {col('Hours',P.hours.map(([d,h])=><span key={d} className="hp-footer__text hp-footer__hours"><span>{d}</span><span>{h}</span></span>))}
   </div>
-  <div style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'16px var(--container-pad) 28px',borderTop:'1px solid var(--border-inverse)',fontSize:13,color:'var(--text-inverse-muted)',display:'flex',gap:20,flexWrap:'wrap',alignItems:'center'}}>
+  <div className="hp-container hp-footer__legal">
    <span>© {P.name} · Tuscumbia, Alabama</span>
-   <span style={{display:'flex',gap:16}} title="Pages not yet approved: shown as labels only">{['Partners','Host an event','Refund policy','Terms'].map(x=><span key={x}>{x}</span>)}</span>
-   <span style={{display:'flex',gap:10,marginLeft:'auto'}}>{P.social.map(([l,i])=><span key={l} aria-label={l}><Icon name={i} size={20}/></span>)}</span>
-   <a href="#/gate" onClick={e=>{e.preventDefault();go('gate')}} className="proto-footlink" style={{fontSize:12,minHeight:0}}>Gate check-in (staff demo)</a><button onClick={reset} style={{background:'none',border:'1px solid var(--border-inverse)',color:'var(--text-inverse-muted)',borderRadius:4,padding:'4px 10px',font:'inherit',fontSize:12,cursor:'pointer'}}>Reset demo</button>
+   <span className="hp-footer__social">{P.social.map(([l,i,h])=><a key={l} href={h} target="_blank" rel="noopener" aria-label={l} className="hp-footer__link"><Icon name={i} size={20}/></a>)}</span>
+   <a href="#/gate" onClick={e=>{e.preventDefault();go('gate')}} className="hp-footer__link">Gate check-in (staff demo)</a><a href="#/admin" onClick={e=>{e.preventDefault();go('admin')}} className="hp-footer__link">Staff admin</a><button type="button" onClick={reset} className="proto-demo-btn">Reset demo</button>
   </div></footer>}
-function Section({eyebrow,title,action,intro,children,dark,sunken,style,id}){
- return <section id={id} className={dark?'hp-on-dark':''} style={{background:dark?'var(--black-950)':sunken?'var(--bg-sunken)':'transparent',color:dark?'var(--stone-50)':'inherit',...style}}><div style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'64px var(--container-pad)'}}>
-  {(title||eyebrow)&&<div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-end',gap:16,marginBottom:28,flexWrap:'wrap'}}><div style={{maxWidth:720}}>{eyebrow&&<div className="hp-eyebrow" style={{color:dark?'var(--gold-400)':'var(--gold-700)'}}>{eyebrow}</div>}{eyebrow&&<span className="hp-rule" style={{margin:'8px 0 12px'}}/>}<h2 className="hp-display" style={{margin:0,fontSize:'var(--fs-h1)',lineHeight:1,color:dark?'var(--stone-50)':'var(--text-strong)',textWrap:'balance'}}>{title}</h2>{intro&&<p style={{margin:'14px 0 0',fontSize:17,lineHeight:1.55,color:dark?'var(--stone-200)':'var(--text-muted)',textWrap:'pretty'}}>{intro}</p>}</div>{action}</div>}
-  {children}</div></section>}
-function PageHead({eyebrow,title,intro,actions,image,imageAlt,position}){
- return <div className="hp-on-dark" style={{background:'var(--black-950)',color:'var(--stone-50)',overflow:'hidden'}}>
-  <div className="proto-pagehead" style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'0 var(--container-pad)'}}>
-   <div style={{padding:'56px 0 48px',display:'flex',flexDirection:'column',justifyContent:'flex-end'}}>
-    <div className="hp-eyebrow" style={{color:'var(--gold-400)'}}>{eyebrow}</div><span className="hp-rule" style={{margin:'10px 0 14px'}}/>
-    <h1 className="hp-display" style={{margin:0,fontSize:'var(--fs-display-l)',lineHeight:.95,textWrap:'balance'}}>{title}</h1>
-    {intro&&<p style={{margin:'16px 0 0',fontSize:18,lineHeight:1.55,color:'var(--stone-200)',maxWidth:560,textWrap:'pretty'}}>{intro}</p>}
-    {actions&&<div style={{display:'flex',gap:12,flexWrap:'wrap',marginTop:24}}>{actions}</div>}
-   </div>
-   {image!==undefined&&<div className="proto-pagehead__img"><window.DS.Photo src={image||undefined} caption={image?undefined:imageAlt} alt={imageAlt} position={position} ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/></div>}
-  </div></div>}
-function Row({l,v,b,muted}){return <div style={{display:'flex',justifyContent:'space-between',gap:12,fontSize:b?17:15,fontWeight:b?700:400,color:b?'var(--text-strong)':muted?'var(--text-muted)':'inherit'}}><span>{l}</span><span style={{textAlign:'right'}}>{v}</span></div>}
-function TextLink({to,children,onClick,dark}){const {go}=useApp();return <a href={to?'#/'+to:'#'} onClick={e=>{e.preventDefault();onClick?onClick():go(to)}} style={{color:dark?'var(--gold-400)':'var(--text-strong)',fontWeight:700,textDecoration:'underline',textUnderlineOffset:3,textDecorationColor:'var(--gold-400)',textDecorationThickness:2,cursor:'pointer'}}>{children}</a>}
-function Callout({children,dark}){return <div style={{display:'flex',gap:10,alignItems:'flex-start',fontSize:15,color:dark?'var(--stone-200)':'var(--text-muted)'}}><Icon name="info" size={18} style={{flex:'none',marginTop:2}}/><span>{children}</span></div>}
-Object.assign(window,{Shell,Section,PageHead,Row,TextLink,Callout,AppCtx:Ctx,useApp,HP_LINKS:LINKS,HP_LOGO:LOGO});
+Object.assign(window,{Shell,Section,PageHead,CtaBand,Row,TextLink,Callout,Feature,PriceList,Chip,Accordion,Textarea,AppCtx:Ctx,useApp,HP_LINKS:LINKS,HP_LOGO:LOGO,cx});
 })();

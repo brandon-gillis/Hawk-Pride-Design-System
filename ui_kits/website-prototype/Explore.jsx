@@ -1,102 +1,133 @@
 (()=>{
-const {Photo,Button,Icon,Badge,Alert,Tabs,TrailRow,Dialog,DifficultyBadge}=window.DS;
-const IMG='../../assets/photos/';
-function EventsIndex(){const {go,book}=useApp();const E=window.HP_DATA.events;
- return <><PageHead eyebrow="Events" title="Big weekends on the mountain." intro="Rock crawls, hillclimbs, club rides and holiday weekends. Every event page has dates, what’s included and a way to book." image={hpAsset('event-crawl-crowd.jpg')} imageAlt="Crowd at a rock crawl"/>
-  <Section>
-   <div style={{display:'flex',flexDirection:'column',gap:16}}>{E.map(e=><div key={e.id} className="hp-card" style={{display:'grid',gridTemplateColumns:'minmax(0,300px) minmax(0,1fr)',overflow:'hidden'}}>
-    <div style={{position:'relative',minHeight:190}}><Photo src={e.image||undefined} caption={e.image?undefined:'Event photo'} alt={e.title} ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/></div>
-    <div style={{padding:'22px 24px',display:'flex',gap:24,alignItems:'center',flexWrap:'wrap'}}>
-     <div style={{textAlign:'center',minWidth:64}}><div className="hp-eyebrow" style={{color:'var(--gold-700)'}}>{HP.M[HP.p(e.start).getMonth()]}</div><div className="hp-display" style={{fontSize:48,lineHeight:1}}>{HP.p(e.start).getDate()}</div></div>
-     <div style={{flex:'1 1 280px'}}><div style={{display:'flex',gap:8,alignItems:'center',flexWrap:'wrap'}}><span className="hp-eyebrow" style={{color:'var(--text-muted)'}}>{e.type} · {HP.range(e.start,e.end)}, {HP.p(e.start).getFullYear()}</span>{e.status==='few'&&<Badge tone="warning">Few sites left</Badge>}{e.status==='soldout'&&<Badge tone="danger">Registration full</Badge>}{e.status==='featured'&&<Badge tone="gold">Featured</Badge>}</div>
-      <h2 className="hp-display" style={{fontSize:'var(--fs-h2)',margin:'6px 0'}}>{e.title}</h2><p style={{margin:0,color:'var(--text-muted)'}}>{e.hook}</p></div>
-     <div style={{display:'flex',gap:10}}><Button variant="outline" onClick={()=>go('events/'+e.id)}>View Event</Button>{e.status!=='soldout'&&<Button onClick={()=>book({event:e.id})}>Register</Button>}</div>
-    </div></div>)}</div>
-   <p style={{marginTop:24,color:'var(--text-muted)'}}>Regular open weekends aren’t listed here. The park is open every Friday to Sunday. <TextLink to="rates">See rates</TextLink>.</p></Section></>}
-function EventPage({id}){const {book,go}=useApp();const e=window.HP_DATA.events.find(x=>x.id===id)||window.HP_DATA.events[0];const closed=e.status==='soldout';
+const {Photo,Button,Icon,Badge,Alert,Tabs}=window.DS;
+const statusBadge=e=>e.status==='few'?<Badge tone="warning">Few sites left</Badge>:e.status==='soldout'?<Badge tone="danger">Registration full</Badge>:e.status==='featured'?<Badge tone="gold">Featured</Badge>:null;
+function EventsIndex(){const {go,book}=useApp();const E=window.HP_DATA.events;const nx=E.find(e=>e.status!=='soldout'&&e.end>=HP.today)||E[0];const [view,setView]=React.useState('list');
+ if(!nx)return <Section eyebrow="Events" title="No events on the calendar yet." intro="The park is open every Friday to Sunday. Check back for rock crawls, hillclimbs and holiday weekends."/>;
+ const toList=()=>{const el=document.getElementById('ev-list');el&&window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'})};
+ return <><div className="hp-hero hp-hero--md ev-hero">
+   <Photo src={hpAsset('event-crawl-crowd.jpg')} alt="Crowd watching a rig work the rock pit at an event" position="50% 40%" ratio="auto" className="hp-photo--fill"/>
+   <div className="hp-scrim hp-scrim--hero"/>
+   <div className="hp-hero__inner hp-on-dark"><div className="home-hero__row">
+    <div className="home-hero__text">
+     <div className="hp-eyebrow hp-eyebrow--accent">Hawk Pride · Events</div><span className="hp-rule"/>
+     <h1 className="hp-display hp-display-xl">Off-Road Events &amp; Rides</h1>
+     <p className="hp-hero__lede">From rock crawling competitions and hillclimbs to club rides and special event weekends, there’s always something happening on the mountain. Explore upcoming events, find your weekend, and get ready to ride.</p>
+     <div className="hp-actions"><Button size="lg" onClick={toList}>Explore Upcoming Events</Button><Button size="lg" variant="outline" onClick={()=>go('events/'+nx.id)}>Next Event: {HP.range(nx.start,nx.end)}</Button></div>
+    </div>
+    <button type="button" onClick={()=>go('events/'+nx.id)} className="home-next">
+     <span className="hp-eyebrow hp-eyebrow--accent">Next up</span><span className="hp-display home-next__title">{nx.title}</span><span className="home-next__meta">{HP.range(nx.start,nx.end)} · View event →</span></button>
+   </div></div></div>
+  <Section id="ev-list"><div className="hp-stack">
+   <div className="ev-toolbar"><Tabs variant="pill" label="Events view" items={[{id:'list',label:'List',icon:'list'},{id:'cal',label:'Calendar',icon:'calendar-days'}]} value={view} onChange={setView}/><TextLink href={HP_EVENTS.GCAL.subscribe} target="_blank" rel="noopener" iconRight="external-link">Add our calendar to Google Calendar</TextLink></div>
+   {view==='cal'?<EventCalendar events={E} onOpen={e=>go('events/'+e.id)}/>:E.map(e=><div key={e.id} className="hp-card ev-row">
+    <div className="ev-row__media"><Photo src={e.image||undefined} caption={e.image?undefined:'Event photo'} alt={e.title} ratio="auto" className="hp-photo--fill"/></div>
+    <div className="ev-row__body">
+     <div className="ev-row__date" aria-hidden="true"><div className="hp-eyebrow hp-eyebrow--accent">{HP.M[HP.p(e.start).getMonth()]}</div><div className="hp-display ev-row__day">{HP.p(e.start).getDate()}</div></div>
+     <div className="ev-row__main"><div className="hp-cluster"><span className="hp-eyebrow hp-eyebrow--muted">{e.type} · {HP.range(e.start,e.end)}, {HP.p(e.start).getFullYear()}</span>{statusBadge(e)}</div>
+      <h2 className="hp-display hp-h2 ev-row__title">{e.title}</h2><p className="hp-muted">{e.hook}</p></div>
+     <div className="hp-cluster"><Button variant="outline" onClick={()=>go('events/'+e.id)}>View Event</Button>{e.status!=='soldout'&&<Button onClick={()=>book({event:e.id})}>Register</Button>}</div>
+    </div></div>)}
+   <p className="hp-muted">Regular open weekends aren’t listed here. The park is open every Friday to Sunday. <TextLink to="rates">See rates</TextLink>.</p></div></Section></>}
+function EventPage({id}){const {book,go}=useApp();const e=window.HP_DATA.events.find(x=>x.id===id)||window.HP_DATA.events[0];const closed=e.status==='soldout';const PR=HP.ratesFor(e);
+ const toSchedule=()=>{const el=document.getElementById('schedule');el&&window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'})};
  return <>
-  <div style={{position:'relative',minHeight:'min(70vh,600px)',display:'flex',alignItems:'flex-end',background:'var(--black-900)'}}>
-   <Photo src={e.image||undefined} caption={e.image?undefined:'Event hero photo'} alt={e.title} ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/>
-   <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, rgba(13,13,11,.94), rgba(13,13,11,.25) 70%)'}}/>
-   <div className="hp-on-dark" style={{position:'relative',width:'100%',maxWidth:'var(--container-max)',margin:'0 auto',padding:'120px var(--container-pad) 44px',color:'var(--stone-50)'}}>
-    <button onClick={()=>go('events')} className="hp-btn hp-btn--ghost hp-btn--sm" style={{marginLeft:-10,color:'var(--stone-200)'}}><Icon name="arrow-left" size={16}/>All events</button>
-    <div className="hp-eyebrow" style={{color:'var(--gold-400)',marginTop:10}}>{e.type} · {HP.fmtLong(e.start)} – {HP.fmtLong(e.end)}, {HP.p(e.start).getFullYear()}</div>
-    <h1 className="hp-display" style={{margin:'10px 0 0',fontSize:'var(--fs-display-xl)',lineHeight:.92}}>{e.title}</h1>
-    <p style={{fontSize:19,maxWidth:560,color:'var(--stone-200)',margin:'14px 0 24px'}}>{e.hook}</p>
-    <div style={{display:'flex',gap:12,flexWrap:'wrap'}}>{closed?<Badge tone="danger">Registration full</Badge>:<Button size="lg" onClick={()=>book({event:e.id})}>Register & Book</Button>}<Button size="lg" variant="outline" onClick={()=>{const el=document.getElementById('schedule');el&&window.scrollTo({top:el.offsetTop-80,behavior:'smooth'})}}>Schedule</Button></div>
+  <div className="hp-hero hp-hero--md">
+   <Photo src={e.image||undefined} caption={e.image?undefined:'Event hero photo'} alt={e.title} ratio="auto" className="hp-photo--fill"/>
+   <div className="hp-scrim hp-scrim--deep"/>
+   <div className="hp-hero__inner hp-on-dark">
+    <Button variant="ghost" size="sm" icon="arrow-left" className="hp-backlink" onClick={()=>go('events')}>All events</Button>
+    <div className="hp-eyebrow hp-eyebrow--accent">{e.type} · {HP.fmtLong(e.start)} – {HP.fmtLong(e.end)}, {HP.p(e.start).getFullYear()}</div><span className="hp-rule"/>
+    <h1 className="hp-display hp-display-xl">{e.title}</h1>
+    <p className="hp-hero__lede">{e.hook}</p>
+    <div className="hp-actions">{closed?<Badge tone="danger">Registration full</Badge>:<Button size="lg" onClick={()=>book({event:e.id})}>Register & Book</Button>}<Button size="lg" variant="outline" onClick={toSchedule}>Schedule</Button></div>
    </div></div>
   <Section>
-   <div className="split split--wide" style={{alignItems:'start'}}>
-    <div><p style={{fontSize:20,lineHeight:1.5,margin:0,textWrap:'pretty'}}>{e.desc}</p>
-     <div className="g4" style={{marginTop:28,gap:0,border:'1px solid var(--border-subtle)',borderRadius:'var(--radius-md)',overflow:'hidden'}}>{e.facts.map(([l,v])=><div key={l} style={{padding:'14px 16px',background:'var(--surface-card)',borderRight:'1px solid var(--border-subtle)'}}><div className="hp-eyebrow" style={{color:'var(--text-muted)'}}>{l}</div><div style={{fontWeight:700,fontSize:17,marginTop:4}}>{v}</div></div>)}</div>
-     {e.jeep&&<div style={{marginTop:24,display:'flex',gap:12,alignItems:'center'}}><Icon name="trophy" size={22}/><span>Bringing a Jeep? Run <TextLink to="trails/uphill-both-ways">Uphill Both Ways</TextLink>, our Jeep Badge of Honor trail.</span></div>}
+   <div className="hp-split hp-split--wide">
+    <div><p className="ev-desc">{e.desc}</p>
+     {(e.facts||[]).length>0&&<div className="facts">{e.facts.map(([l,v],i)=><div key={i}><div className="hp-eyebrow hp-eyebrow--muted">{l}</div><div className="facts__v">{v}</div></div>)}</div>}
+     {e.jeep&&<div className="ev-jeep"><Icon name="trophy" size={22}/><span>Bringing a Jeep? Run <TextLink to="trails/jeep-badge-of-honor/uphill-both-ways">Uphill Both Ways</TextLink>, our Jeep Badge of Honor trail.</span></div>}
     </div>
-    <div className="hp-card hp-card--raised" style={{padding:24,gap:14,position:'sticky',top:96}}>
-     <div className="hp-eyebrow" style={{color:'var(--gold-700)'}}>Pricing</div>
-     <Row l="Riding admission" v={'$'+window.HP_DATA.pricing.day+' / day'}/><Row l="Day 3 and beyond" v={'$'+window.HP_DATA.pricing.dayLater+' / day'}/><Row l="Kids 12 and under" v="Free"/><Row l="Spectators" v="To be confirmed"/>
+    <div className="hp-card hp-card--raised hp-card--padded ev-aside">
+     <div className="hp-eyebrow hp-eyebrow--accent">{PR.mode!=='standard'?'Event pricing':'Pricing'}</div>
+     <div className="hp-kv-list">{PR.mode==='free'?<><Row label="Riding" value="No charge · group ride"/><Row label="Spectators" value="Free"/><Row label="Waivers" value="Required for everyone"/></>:<>{PR.mode==='fixed'?<Row label="Event fee" value={HP.money(PR.fixed)+' / rider · whole event'}/>:<><Row label="Riding admission" value={HP.money(PR.day)+' / day'}/><Row label="Day 3 and beyond" value={HP.money(PR.dayLater)+' / day'}/></>}<Row label={'Kids '+PR.freeAge+' and under'} value="Free"/><Row label="Spectators" value={PR.spectator>0?HP.money(PR.spectator)+(PR.mode==='fixed'?' / person':' / day')+' · pay at the gate':'Free · waiver required'}/>{(PR.extras||[]).map(([l,n],i)=><Row key={i} label={l} value={HP.money(n)}/>)}</>}</div>
      <Callout>Cabins and RV sites go fast on event weekends.</Callout>
      {closed?<Alert tone="danger" title="Registration is full">Watch this page for next year.</Alert>:<Button block size="lg" onClick={()=>book({event:e.id})}>Register & Book</Button>}
+     <Button block variant="outline" icon="calendar-check" href={HP_EVENTS.addLink(e)} target="_blank" rel="noopener">Add to Google Calendar</Button>
     </div></div></Section>
-  <Section sunken id="schedule" eyebrow="Schedule" title="How the weekend runs.">
-   <div style={{display:'flex',flexDirection:'column'}}>{e.schedule.map(([d,t])=><div key={d} style={{display:'grid',gridTemplateColumns:'160px minmax(0,1fr)',gap:20,padding:'16px 0',borderTop:'1px solid var(--border-default)',fontSize:17}}><div className="hp-display" style={{fontSize:24}}>{d}</div><div>{t}</div></div>)}</div></Section>
+  {e.schedule&&e.schedule.length>0&&<Section sunken id="schedule" eyebrow="Schedule" title="How the weekend runs.">
+   <div>{e.schedule.map(([d,t],i)=><div key={i} className="schedule__row"><div className="hp-display schedule__d">{d}</div><div>{t}</div></div>)}</div></Section>}
   <Section eyebrow="Stay for the weekend" title="Where to stay.">
-   <div className="g3">{[['Cabins',HP.priceLabel('cabin'),'cabin'],['RV sites',HP.money(HP.rate('powered'))+' powered · '+HP.money(HP.rate('dry'))+' dry','powered'],['Camping','From '+HP.priceLabel('anywhere'),'primitive']].map(([t,p,s])=><div key={t} className="hp-card" style={{padding:20,gap:8}}><div style={{fontWeight:700,fontSize:18}}>{t}</div><div style={{color:'var(--text-muted)'}}>{p}</div>{!closed&&<div><Button size="sm" variant="secondary" onClick={()=>book({event:e.id})}>Book with this event</Button></div>}</div>)}</div></Section>
+   <div className="hp-grid hp-grid--3">{[['Cabins',HP.priceLabel('cabin')],['RV sites',HP.money(HP.rate('powered'))+' powered · '+HP.money(HP.rate('dry'))+' dry'],['Camping','From '+HP.priceLabel('anywhere')/* PRIMITIVE: 'primitive' */]].map(([t,p])=><div key={t} className="hp-card hp-card--padded"><Feature title={t}>{p}</Feature>{!closed&&<div><Button size="sm" variant="secondary" onClick={()=>book({event:e.id})}>Book with this event</Button></div>}</div>)}</div></Section>
   <Section sunken eyebrow="Before you come" title="Rules & FAQ.">
-   <div className="g2" style={{gap:'24px 40px'}}>{[['Do I need a waiver?','Yes, every rider. You’ll sign online right after you book.'],['Can I come just to watch?','Yes, spectators are welcome. Spectator pricing is still being set.'],['Are park rules different?','Standard park rules apply. Flags on whips are required.'],['Can I pay at the gate?','Yes, but booking ahead gets you through the gate faster.']].map(([q,a])=><div key={q}><div style={{fontWeight:700,fontSize:17}}>{q}</div><div style={{color:'var(--text-muted)',marginTop:4}}>{a}</div></div>)}</div>
-   <div style={{marginTop:28,paddingTop:20,borderTop:'1px solid var(--border-default)',display:'flex',gap:16,alignItems:'center',flexWrap:'wrap'}}><span className="hp-eyebrow" style={{color:'var(--text-muted)'}}>Event sponsors</span>{[1,2,3].map(i=><span key={i} style={{width:120,height:44,border:'1px dashed var(--border-default)',borderRadius:4,display:'grid',placeItems:'center',fontSize:12,color:'var(--text-subtle)'}}>Sponsor logo</span>)}</div></Section></>}
-function Trails(){const {go,book}=useApp();const [f,setF]=React.useState('all');const [t,setT]=React.useState(null);const D=window.HP_DATA.trails;const list=f==='all'?D:D.filter(x=>x.level===f);
- return <><PageHead eyebrow="Trails" title="From wooded trails to serious rock." intro="Over 1,000 acres and 120+ rock trails. Every trail is marked by difficulty so you can pick the ride that fits you and your rig." actions={[<Button key="d" size="lg" icon="download">Download trail map</Button>]} image={hpAsset('rock-ledge-buggies.jpg')} imageAlt="Buggies on a rock ledge"/>
-  <Section>
-   <div className="split" style={{alignItems:'start',gridTemplateColumns:'minmax(0,1fr) minmax(0,1.1fr)'}}>
-    <div style={{display:'flex',flexDirection:'column',gap:14}}>
-     {HP.notices('trails').map(n=><Alert key={n.title} tone={n.tone} title={n.title}>{n.text}</Alert>)}
-     <Tabs variant="pill" value={f} onChange={setF} items={[{id:'all',label:'All'},{id:'easy',label:'Easy'},{id:'moderate',label:'Moderate'},{id:'difficult',label:'Difficult'},{id:'extreme',label:'Extreme'}]}/>
-     <div style={{background:'var(--surface-card)',border:'1px solid var(--border-subtle)',borderRadius:6,padding:'0 12px'}}>{list.map(x=><TrailRow key={x.number} {...x} onClick={()=>x.signature?go('trails/uphill-both-ways'):setT(x)}/>)}</div>
-    </div>
-    <div style={{position:'sticky',top:96}}><div className="hp-card"><Photo caption="Park trail map" ratio="4/3.6"/><div className="hp-card__body" style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap'}}><div style={{display:'flex',gap:12,flexWrap:'wrap'}}>{['easy','moderate','difficult','extreme'].map(l=><DifficultyBadge key={l} level={l}/>)}</div><Button size="sm" variant="outline" icon="download">PDF · works offline</Button></div></div></div>
-   </div></Section>
-  <section className="hp-on-dark" style={{background:'var(--black-950)',color:'var(--stone-50)',overflow:'hidden'}}><div className="split" style={{maxWidth:'var(--container-max)',margin:'0 auto',padding:'0 var(--container-pad)',alignItems:'stretch'}}>
-   <div style={{padding:'64px 0'}}><div className="hp-eyebrow" style={{color:'var(--gold-400)'}}>Signature trail</div><span className="hp-rule" style={{margin:'8px 0 12px'}}/>
-    <h2 className="hp-display" style={{margin:0,fontSize:'var(--fs-display-l)',lineHeight:.95}}>Uphill Both Ways</h2>
-    <p style={{fontSize:18,color:'var(--stone-200)',margin:'14px 0 24px',maxWidth:480}}>A Jeep Badge of Honor trail, right here at Hawk Pride. One of the toughest runs on the mountain.</p>
-    <Button size="lg" iconRight="arrow-right" onClick={()=>go('trails/uphill-both-ways')}>About the trail</Button></div>
-   <div style={{position:'relative',minHeight:380,marginRight:'calc(-1 * var(--container-pad))'}}><Photo caption="Jeep on Uphill Both Ways" ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/></div></div></section>
-  <Section eyebrow="Ride smart" title="Terrain, vehicles and safety.">
-   <div className="g3" style={{gap:'28px 36px'}}>{[['mountain','Terrain','Rock ledges, loose climbs, creek crossings, mud and wooded two-track.'],['car-front','Vehicles','ATVs, side-by-sides, Jeeps, trucks and buggies. Check each trail’s rating.'],['signpost','Navigation','Trails are numbered at every junction. Grab a paper map at the gate.'],['shield-check','Safety','Helmets on ATVs and open SxS. Ride difficult trails with a buddy.'],['users','Families','Start on the easy loops. Kids 12 and under ride free.'],['file-text','Rules','Read the park rules before you ride.','rules']].map(([i,t,d,to])=><div key={t} style={{display:'flex',gap:14}}><Icon name={i} size={26} style={{flex:'none'}}/><div><div style={{fontWeight:700,fontSize:18}}>{to?<TextLink to={to}>{t}</TextLink>:t}</div><div style={{color:'var(--text-muted)',marginTop:4}}>{d}</div></div></div>)}</div></Section>
-  <Dialog open={!!t} title={t?t.number+' · '+t.name:''} onClose={()=>setT(null)} footer={<Button onClick={()=>setT(null)}>Close</Button>}>
-   {t&&<div style={{display:'flex',flexDirection:'column',gap:14}}><Photo caption="Trail photo" ratio="16/9"/><div style={{display:'flex',gap:12,flexWrap:'wrap',alignItems:'center'}}><DifficultyBadge level={t.level}/>{t.status==='closed'?<Badge tone="danger">Closed</Badge>:<Badge tone="success">Open</Badge>}</div>
-    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,fontSize:15}}><div><div style={{color:'var(--text-muted)',fontSize:13}}>Vehicles</div>{t.vehicles}</div><div><div style={{color:'var(--text-muted)',fontSize:13}}>Length</div>{t.length}</div></div></div>}
-  </Dialog></>}
-function UphillBothWays(){const {go,book}=useApp();
+   <div className="hp-grid hp-grid--2 hp-grid--md">{[['Do I need a waiver?','Yes, every rider. You’ll sign online right after you book.'],['Can I come just to watch?','Yes. Spectators get in free. Every spectator signs a waiver and picks up a wristband at check-in.'],['Are park rules different?','Standard park rules apply.'],['Can I pay at the gate?','Yes, but booking ahead gets you through the gate faster.']].map(([q,a])=><Feature key={q} title={q}>{a}</Feature>)}</div>
+   <div className="sponsors"><span className="hp-eyebrow hp-eyebrow--muted">Event sponsors</span>{[1,2,3].map(i=><span key={i} className="sponsors__slot">Sponsor logo</span>)}</div></Section></>}
+
+const TR_MAP='../../assets/maps/HawkPride_Official-Map-2026.pdf',TR_JEEP='../../assets/badges/jeep-badge-of-honor.png',TR_UBW='trails/jeep-badge-of-honor/uphill-both-ways';
+const TR_NAMED=[['Big Hill','#1','Mountain views','For a lot of riders, Big Hill is where the day really begins. Head down from the main parking area toward the trails, with a great view of the mountain along the way. It\'s a reminder that sometimes the scenery is worth stopping for.'],
+ ['Blue Polaris Outfitter Trail',null,'Explore the Mountain','Roughly five miles of wooded trails, dirt, and a little mud. A great way to see more of Hawk Pride without spending your whole day picking your way over rocks.'],
+ ['Lucky\'s Trail','#23','Technical with scenery','Lucky\'s packs a lot into one trail. Around 1.3 miles of rocks, tight turns, off-camber sections, and a serious vertical ledge, with some great views along the way. It\'s a trail where the driving is technical and the scenery isn\'t bad either.'],
+ ['Merlin','#112','Established rider favorite','Merlin has earned a reputation as one of Hawk Pride\'s favorite technical trails. Big boulders, steep ledges, and off-camber sections make it a challenge even for experienced drivers. There\'s also a parallel viewing route, so you can watch the action without putting your own rig through it.'],
+ ['Fatty\'s Crack','#136','Technical Rock Crawling','One of Hawk Pride\'s well-known technical rock-crawling trails, Fatty\'s Crack features challenging rock formations, tight lines, and obstacles that demand careful vehicle placement. A parallel viewing route gives spectators a chance to watch drivers work their way through the terrain.'],
+ ['Whiskey Run','#100','V-notch and rock obstacles','Whiskey Run doesn\'t waste much time getting interesting. A big V-notch leads into a rocky creek bed, with boulders, ledges, and a climb that can leave even experienced drivers working for every inch. Bring a capable rig and a good spotter.'],
+ ['Vertical Limit','#103','Extreme Hill Climb','A serious hill-climb area featured in race events and attempted by the brave few. One of the places to see just how wild the terrain at Hawk Pride can get.']];
+const openMap=()=>window.open(TR_MAP,'_blank');
+function TrStep({n}){return <div aria-hidden="true" className="tr-step">{[1,2,3,4].map(k=><span key={k} className={k<=n?'is-on':undefined}/>)}</div>}
+function Trails(){const {go,book}=useApp();
+ const WAYS=[['Explore','Easier wooded routes, longer rides and places to simply get out and cover ground.','trail-forest.jpg','50% 55%'],['Trail Ride','Rocks, climbs, mud, elevation changes and technical terrain for riders looking for more challenge.','hillside-traffic.jpg','50% 40%'],['Rock Crawl','Natural rock formations, ledges, boulders and technical lines that reward vehicle capability and driver skill.','trail-flex-1.jpg','40% 50%'],['Go Extreme','Serious hill climbs and obstacles built for highly capable rigs and experienced drivers.','buggy-airborne.jpg','50% 40%']];
+ const STATS=[['1,000+','acres'],['120+','trails'],['ATV • SxS • Jeep • 4x4 • Buggy','',true]];
  return <>
-  <div style={{position:'relative',minHeight:'min(78vh,660px)',display:'flex',alignItems:'flex-end',background:'var(--black-900)'}}>
-   <Photo caption="Hero · Jeep climbing Uphill Both Ways" ratio="auto" style={{position:'absolute',inset:0,aspectRatio:'auto',borderRadius:0}}/>
-   <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, rgba(13,13,11,.94), rgba(13,13,11,.2) 70%)'}}/>
-   <div className="hp-on-dark" style={{position:'relative',width:'100%',maxWidth:'var(--container-max)',margin:'0 auto',padding:'120px var(--container-pad) 48px',color:'var(--stone-50)'}}>
-    <button onClick={()=>go('trails')} className="hp-btn hp-btn--ghost hp-btn--sm" style={{marginLeft:-10,color:'var(--stone-200)'}}><Icon name="arrow-left" size={16}/>Trails</button>
-    <div className="hp-eyebrow" style={{color:'var(--gold-400)',marginTop:10}}>Signature trail · Jeep Badge of Honor</div>
-    <h1 className="hp-display" style={{margin:'10px 0 0',fontSize:'var(--fs-display-xl)',lineHeight:.92}}>Uphill Both Ways</h1>
-    <p style={{fontSize:19,maxWidth:560,color:'var(--stone-200)',margin:'14px 0 24px'}}>Hawk Pride’s Badge of Honor trail. Bring a capable rig, a spotter and some patience.</p>
-    <div style={{display:'flex',gap:12,flexWrap:'wrap'}}><Button size="lg" onClick={()=>book()}>Plan your run</Button><Button size="lg" variant="outline" icon="download">Trail map</Button></div>
-   </div></div>
-  <Section>
-   <div className="split split--wide" style={{alignItems:'start'}}>
-    <div><h2 className="hp-display" style={{fontSize:'var(--fs-h1)',margin:'0 0 14px'}}>Part of the Badge of Honor program.</h2>
-     <p style={{fontSize:18,lineHeight:1.55,margin:0}}>Uphill Both Ways is a Jeep Badge of Honor trail, and it’s here at Hawk Pride. It’s built for capable rigs and patient drivers. The rest of the mountain is open to every kind of rig.</p>
-     <h3 className="hp-card__title" style={{margin:'32px 0 12px',fontSize:22}}>What to expect</h3>
-     <ul style={{margin:0,paddingLeft:20,display:'flex',flexDirection:'column',gap:8,fontSize:17,lineHeight:1.5}}><li>Rock steps and off-camber climbs with a few committing lines.</li><li>Tight trees in places. Mind your mirrors.</li><li>Give yourself time. Groups move slowly on the hard sections.</li></ul>
-     <h3 className="hp-card__title" style={{margin:'32px 0 12px',fontSize:22}}>Before you drop in</h3>
-     <ul style={{margin:0,paddingLeft:20,display:'flex',flexDirection:'column',gap:8,fontSize:17,lineHeight:1.5}}><li>Air down and bring recovery gear.</li><li>Ride with at least one other vehicle.</li><li>Trailhead is signed from the main loop. See the trail map.</li></ul>
-    </div>
-    <div className="hp-card hp-card--raised" style={{padding:24,gap:14,position:'sticky',top:96}}>
-     <div className="hp-eyebrow" style={{color:'var(--gold-700)'}}>Trail facts</div>
-     <div style={{display:'flex',gap:10,alignItems:'center'}}><DifficultyBadge level="difficult"/></div>
-     <Row l="Best for" v="Jeeps and built 4x4s"/><Row l="Driver" v="Some off-road experience"/><Row l="Location" v="Off the main loop"/>
-     <Button block onClick={()=>book()}>Book your trip</Button>
-    </div></div></Section>
-  <Section sunken eyebrow="The community" title="Made it to the top.">
-   <div className="g3">{['Trailhead sign','Group at the top','Completion photo'].map(c=><Photo key={c} caption={c} ratio="4/3"/>)}</div></Section>
-  <Section eyebrow="Keep going" title="More to ride nearby.">
-   <div className="g3">{window.HP_DATA.trails.filter(t=>!t.signature&&t.level!=='easy').slice(0,3).map(t=><div key={t.number} className="hp-card" style={{padding:20,gap:8}}><DifficultyBadge level={t.level}/><div style={{fontWeight:700,fontSize:18}}>{t.number} · {t.name}</div><div style={{color:'var(--text-muted)'}}>{t.vehicles} · {t.length}</div></div>)}</div></Section></>}
-Object.assign(window,{EventsIndex,EventPage,Trails,UphillBothWays});
+  <section className="tr-hero hp-on-dark" data-screen-label="Trails hero">
+   <Photo src={hpAsset('trail-map-hero.jpg')} alt="" position="50% 50%" ratio="auto" className="hp-photo--fill"/>
+   <div className="hp-scrim tr-hero__scrim"/>
+   <div className="hp-container tr-hero__inner">
+    <div className="tr-hero__text">
+     <div className="hp-eyebrow hp-eyebrow--accent">Trails at Hawk Pride</div><span className="hp-rule"/>
+     <h1 className="hp-display hp-display-xl">A whole mountain of off-road adventure</h1>
+     <p className="hp-hero__lede">More than 120 rock-crawling trails, miles of ATV and SxS riding, natural rock formations, wooded trails, hill climbs, mud and terrain ranging from relaxed cruising to serious technical crawling.</p></div>
+    <div className="tr-stats">{STATS.map(([v,l,sm])=>sm?<ul key={v} className="tr-rigs" aria-label="Vehicles welcome">{v.split(' • ').map(r=><li key={r}>{r}</li>)}</ul>:<div key={v}><div className="hp-display tr-stat__v hp-display-l">{v}</div>{l&&<div className="tr-stat__l">{l}</div>}</div>)}</div>
+   </div></section>
+  <section className="tr-ubw-band hp-on-dark" data-screen-label="Uphill Both Ways">
+   <div className="tr-ubw-photo"><Photo src={hpAsset('uphill-both-ways.png')} alt="Jeeps climbing a rock channel between boulders on Uphill Both Ways" position="45% 55%" ratio="auto" className="hp-photo--fill"/><div className="tr-ubw-fade"/></div>
+   <img src={TR_JEEP} alt="Jeep Badge of Honor" className="tr-ubw-patch"/>
+   <div className="hp-container tr-ubw-grid"><div/>
+    <div className="tr-ubw-copy">
+     <div className="tr-ubw-kicker">Official Jeep Badge of Honor</div>
+     <span className="hp-rule"/>
+     <h2 className="hp-display hp-display-l">Uphill Both Ways</h2>
+     <p className="hp-hero__lede">One of Hawk Pride's signature trails and an official Jeep Badge of Honor challenge. Rocks, climbs, off-camber sections, and plenty of opportunities to pick the wrong line.</p>
+     <div className="hp-actions"><Button size="lg" iconRight="arrow-right" onClick={()=>go(TR_UBW)}>About the trail</Button></div></div></div></section>
+  <Section eyebrow="Choose your adventure" title="Mild. Wild. And a whole lot in between.">
+   <div className="tr-ways">{WAYS.map(([n,d,img,pos],x)=><div key={n} className="tr-way hp-on-dark">
+    <Photo src={hpAsset(img)} alt={n} position={pos} ratio="auto" className="hp-photo--fill"/>
+    <div className="hp-scrim hp-scrim--card"/>
+    <div className="tr-way__body"><TrStep n={x+1}/><h3 className="hp-display hp-h2">{n}</h3><p>{d}</p></div></div>)}</div>
+  </Section>
+  <Section dark className="hp-topo hp-topo--dark" eyebrow="1,000+ Acres of Off-Road Terrain" title="Find Your Line" intro="With more than 120 rock-crawling trails, we couldn't fit them all here. But there are a few names you'll hear around the mountain.">
+   <div className="tr-grid">{TR_NAMED.map(([n,num,d,c])=><div key={n} className="tr-card">
+    <div className="tr-card__head"><span className="tr-plate">{num?num:<Icon name="signpost" size={18}/>}</span><span className="hp-eyebrow hp-eyebrow--accent">{d}</span></div>
+    <h3 className="hp-display hp-h3">{n}</h3>
+    <p className="tr-card__text">{c}</p></div>)}
+    <button type="button" onClick={openMap} className="tr-card tr-card--more"><span className="tr-plate tr-plate--outline"><Icon name="map" size={18}/></span><h3 className="hp-display hp-h3">And more than 110 others.</h3><span className="tr-card__more">View Trail Map <Icon name="arrow-right" size={18}/></span></button></div>
+  </Section>
+  <Section eyebrow="Every kind of rig" title="From Stockers to Rockers">
+   <div className="tr-range">
+    <div><h3 className="hp-display hp-h2">Just want to ride?</h3><p className="hp-lede">You don’t need a rock buggy to enjoy Hawk Pride. There are miles of approachable riding and routes for ATV, SxS and 4x4 visitors who simply want to explore the mountain.</p></div>
+    <div className="tr-stairs" aria-hidden="true">{WAYS.map(([n])=><div key={n} className="tr-stair"><div className="tr-stair__bar"/><div className="tr-stair__l">{n}</div></div>)}</div>
+    <div><h3 className="hp-display hp-h2">Here for the hard stuff?</h3><p className="hp-lede">Hawk Pride is known for natural rock, technical crawling, major ledges and serious hill climbs that give built rigs somewhere to work.</p></div>
+   </div>
+   <p className="hp-ruled hp-muted tr-disclaimer">Not every trail suits every vehicle. Conditions and difficulty change, and drivers are responsible for choosing terrain that fits their vehicle and experience.</p>
+  </Section>
+  <Section sunken>
+   <div className="hp-spread">
+    <div className="tr-mapcall__text"><Icon name="map" size={32}/><div><h2 className="hp-display hp-h2">Know where you’re going.</h2><p className="hp-lede">Trail conditions and routes matter once you’re on the mountain. Use the current Hawk Pride trail map for detailed navigation while riding.</p></div></div>
+    <Button size="lg" variant="outline" icon="map" onClick={openMap}>View Trail Map</Button></div>
+  </Section>
+  <section className="tr-final hp-on-dark" data-screen-label="Trails CTA">
+   <Photo src={hpAsset('hillside-traffic.jpg')} alt="A line of side-by-sides and buggies climbing a dirt hill through the trees" position="50% 35%" ratio="auto" className="hp-photo--fill"/>
+   <div className="hp-scrim tr-final__scrim"/>
+   <div className="hp-container tr-final__inner">
+    <div><div className="hp-eyebrow hp-eyebrow--accent">Go conquer something</div><span className="hp-rule"/><h2 className="hp-display hp-display-xl">Ready to ride it?</h2></div>
+    <div className="tr-cta">{[['Plan a visit','route','book',true],['Stay at the park','tent','cabins'],['See upcoming events','calendar-days','events']].map(([l,ic,to,pri])=><button key={to} type="button" onClick={()=>to==='book'?book():go(to)} className={cx('tr-cta__tile',pri&&'tr-cta__tile--pri')}><Icon name={ic} size={28}/><span className="tr-cta__row"><span className="hp-display hp-h2">{l}</span><Icon name="arrow-right" size={24}/></span></button>)}</div>
+   </div></section></>}
+Object.assign(window,{EventsIndex,EventPage,Trails});
 })();

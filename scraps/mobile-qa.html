@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{margin:0;background:#333;display:flex;gap:16px;padding:16px}iframe{width:390px;height:844px;border:0;background:#fff;flex:none}</style></head><body><iframe id="f" src="../ui_kits/website-prototype/index.html#/"></iframe><iframe id="g" src="../ui_kits/website-prototype/index.html#/events" style="display:none"></iframe>
+<pre id="o" style="color:#fff;font:12px/1.4 monospace;white-space:pre-wrap;max-width:560px;margin:0"></pre><script>
+window.go=(h,id='f')=>{const f=document.getElementById(id);f.contentWindow.location.hash=h;};
+window.probe=()=>{const w=document.getElementById('f').contentWindow,d=w.document;const out={hash:w.location.hash,scrollW:d.documentElement.scrollWidth,overflow:[],tiny:[],taps:[]};
+d.querySelectorAll('body *').forEach(el=>{const r=el.getBoundingClientRect();if(!r.width)return;const cs=w.getComputedStyle(el);
+ if(r.right>392&&cs.position!=='fixed'&&!el.closest('[class*=scroll],.hp-tabs,.adm-tabs__in,.sm,.bk-steps'))out.overflow.push(el.className.toString().slice(0,40)+' '+Math.round(r.right));
+ const t=[...el.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().length>2);if(t&&parseFloat(cs.fontSize)<13)out.tiny.push(el.className.toString().slice(0,30)+' '+cs.fontSize+' "'+el.textContent.trim().slice(0,20)+'"');
+ if(t&&parseFloat(cs.fontSize)<20&&r.height>parseFloat(cs.fontSize)*2.2){const lh=cs.lineHeight==='normal'?1.2:parseFloat(cs.lineHeight)/parseFloat(cs.fontSize);if(lh<1.35)(out.tight=out.tight||[]).push(el.className.toString().slice(0,30)+' '+cs.fontSize+'/'+lh.toFixed(2)+' "'+el.textContent.trim().slice(0,16)+'"')}
+ if(el.matches('a,button,input,select,textarea,[role=button]')&&cs.visibility!=='hidden'&&(r.height<40||r.width<40)&&!el.closest('p,li,.hp-footer__legal')&&!/hp-btn--sm|hp-tab|hp-iconbtn--sm/.test(el.className))out.taps.push(el.tagName+'.'+el.className.toString().slice(0,30)+' '+Math.round(r.width)+'x'+Math.round(r.height)+' "'+el.textContent.trim().slice(0,16)+'"')});
+out.overflow=out.overflow.slice(0,8);out.tiny=[...new Set(out.tiny)].slice(0,10);out.tight=[...new Set(out.tight||[])].slice(0,10);out.taps=[...new Set(out.taps)].slice(0,12);document.getElementById('o').textContent=JSON.stringify(out,null,1);return out};
+</script></body></html>

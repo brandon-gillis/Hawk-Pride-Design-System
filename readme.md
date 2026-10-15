@@ -16,8 +16,9 @@ This system serves one surface: the **public website** (mobile-first), covering 
 ## Index
 - `styles.css` — entry point (imports only)
 - `tokens/` — `fonts.css`, `colors.css`, `typography.css`, `spacing.css`, `effects.css`
-- `components/components.css` — all component classes (`hp-*`)
-- `components/core|forms|content|navigation|feedback/` — React primitives + one card per folder
+- `components/components.css` — component classes (`hp-*`)
+- `components/patterns.css` — page patterns and helpers: container, section rhythm (`--section-y`), stack/cluster/spread/grid/split, type size classes, heroes, CTA band, footer, accordion, chip, summary rows, callout, text link, feature, price list
+- `components/core|forms|content|navigation|feedback|layout/` — React primitives + one card per folder
 - `guidelines/` — foundation specimen cards (Colors, Type, Spacing, Brand) + `brand-platform.md` (strategy summary)
 - `ui_kits/website/` — click-through site + booking flow (`index.html`, `mobile.html`)
 - `assets/photos/` — owner-supplied park photography
@@ -27,11 +28,16 @@ This system serves one surface: the **public website** (mobile-first), covering 
 - `thumbnail.html`, `SKILL.md`
 
 ## Components
-- **core:** Button, IconButton, Icon, Badge, DifficultyBadge
-- **forms:** Input, Select, Checkbox, Radio, Switch, QuantityStepper
-- **content:** Card, CardBody, Photo, EventCard, LodgingCard, PriceCard, TrailRow
+- **core:** Button, IconButton, Icon, Badge, DifficultyBadge, Chip, TextLink
+- **forms:** Input, Textarea, Select, Checkbox, Radio, Switch, QuantityStepper
+- **content:** Card, CardBody, Photo, EventCard, LodgingCard, PriceCard, TrailRow, PriceList, SummaryRow, Feature, Accordion
 - **navigation:** SiteHeader, Tabs, BookingBar
-- **feedback:** Alert, Dialog, Toast, Tooltip
+- **feedback:** Alert, Callout, Dialog, Toast, Tooltip
+- **layout:** Section, SectionHeader, PageHero, CtaBand, SiteFooter
+
+**Styling rule (14 Oct audit):** build pages from these classes, not inline styles. Inline `style` is allowed only for data-driven geometry (map pin positions, crop windows). Headline = `.hp-display` + a size class (`.hp-display-xl|-l`, `.hp-h1`–`.hp-h4`); reading text = `.hp-lede` / `.hp-body-l` (62–68ch); muted = `.hp-muted`; eyebrows take `.hp-eyebrow--accent` or `--muted` and flip on `.hp-on-dark`. Card copy = `.hp-card__text`; padded cards = `.hp-card--padded`. Inside `.hp-root`, p/h/ul margins are reset; space with stacks and gaps.
+
+**Type sizes (14 Oct, pre-launch):** CSS never sets a font size in px; every size is a `--fs-*` token (caption 12, eyebrow 13, small 14, body-s 15, body 16, body-l 18, button 17/19, h4–display fluid). Running text is 14px minimum with line-height ≥1.4; 12–13px is for uppercase labels only. Dense staff tools (the admin) re-declare the small end of the ladder on their root (`.adm`), so DS components scale with no per-component overrides. Text links get a 44px hit area outside paragraphs.
 
 No source defined a component inventory, so this is an authored standard set. Intentional additions beyond the standard list: **Icon** (Lucide wrapper), **Photo** (aspect-locked frame + placeholder, since no photography exists yet), **DifficultyBadge**, **QuantityStepper**, **EventCard / LodgingCard / PriceCard / TrailRow / BookingBar / SiteHeader** (the park's core content types and booking pattern).
 

@@ -1,0 +1,23 @@
+<!-- @dsCard group="Components" viewport="900x980" name="Layout" subtitle="Section, PageHero, CtaBand, SiteFooter + container, stack, grid, split and type helpers" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Layout</title><link rel="stylesheet" href="../../styles.css"><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--bg-page)}.lbl{font:500 11px var(--font-mono);color:var(--text-subtle);text-transform:uppercase;letter-spacing:.06em;padding:14px 20px 6px;background:var(--stone-0)}</style></head>
+<body class="hp-root"><div id="root"></div><script type="text/babel">
+const {Section,PageHero,CtaBand,SiteFooter,Button,Feature}=window.HawkPrideDesignSystem_97eec1;
+const L=({children})=><div className="lbl">{children}</div>;
+ReactDOM.createRoot(root).render(<div>
+<L>PageHero · interior page header (photo moves above title on mobile)</L>
+<PageHero eyebrow="Cabins" title="Sleep close to the trails." intro="Eight cabins in the middle of the park. Park the rig close by and ride out in the morning." actions={<Button size="lg">Check availability</Button>} image="../../assets/photos/cabin-1-exterior.jpg" imageAlt="Cabin 1"/>
+<L>Section · eyebrow, gold rule, H1-size title, intro, action · alternates plain / sunken / dark</L>
+<Section sunken eyebrow="Campground rules" title="Before you set up." intro="Short, scannable rules. Use Feature in a 3-up grid." action={<Button variant="outline" iconRight="arrow-right">All rules</Button>}>
+ <div className="hp-grid hp-grid--3 hp-grid--md"><Feature icon="flame" title="Fires">In pits and rings only.</Feature><Feature icon="moon" title="Quiet hours">10 PM to daylight.</Feature><Feature icon="dog" title="Pets">Up to 2, leashed.</Feature></div>
+</Section>
+<L>CtaBand · dark and gold</L>
+<CtaBand title="Pick your weekend." text="Choose your dates and we’ll show you which cabins are free." action={<Button size="lg">Check availability</Button>}/>
+<CtaBand tone="gold" title="Pick your dates. We’ll handle the rest." action={<Button size="lg" variant="secondary" iconRight="arrow-right">Book Now</Button>}/>
+<L>SiteFooter</L>
+<SiteFooter logoSrc="../../assets/logo/brandmark-gold.svg" columns={[{title:'Visit',items:[{label:'589 Hester Porter Rd',icon:'map-pin',text:true},{label:'(256) 349-4150',icon:'phone',href:'#'}]},{title:'Park',items:[{label:'Events',href:'#'},{label:'Trails',href:'#'},{label:'Rates',href:'#'}]},{title:'Before you come',items:[{label:'Rules',href:'#'},{label:'FAQ',href:'#'}]}]} legal={<span>© Hawk Pride Offroad · Tuscumbia, Alabama</span>} social={[{label:'Facebook',icon:'facebook'},{label:'Instagram',icon:'instagram'}]}/>
+</div>);
+</script></body></html>

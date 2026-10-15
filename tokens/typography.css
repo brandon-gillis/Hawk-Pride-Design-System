@@ -19,6 +19,8 @@
 /* Body — Archivo (wdth 100) */
 --fs-body-l:18px; /* @kind font */
 --lh-body-l:1.55; /* @kind font */
+--fs-body-s:15px; /* @kind font */
+--lh-body-s:1.5; /* @kind font */
 --fs-body:16px; /* @kind font */
 --lh-body:1.5; /* @kind font */
 --fs-small:14px; /* @kind font */
@@ -27,6 +29,8 @@
 --lh-caption:1.35; /* @kind font */
 --fs-eyebrow:13px; /* @kind font */
 --ls-eyebrow:.14em; /* @kind font */
+--fs-button:17px; /* @kind font */
+--fs-button-lg:19px; /* @kind font */
 --fs-price:32px; /* @kind font */
 --fw-regular:400; /* @kind font */
 --fw-medium:500; /* @kind font */

@@ -6,7 +6,8 @@ function App(){const hash=useHash();
  const [trip,setTrip]=React.useState(()=>{try{return {...fresh(),...(JSON.parse(localStorage.getItem(KEY))||{})}}catch(e){return fresh()}});
  const update=React.useCallback(p=>setTrip(t=>{const n={...t,...(typeof p==='function'?p(t):p)};localStorage.setItem(KEY,JSON.stringify(n));return n}),[]);
  const go=React.useCallback(to=>{location.hash='#/'+(to==='home'?'':to)},[]);
- const reset=()=>{localStorage.removeItem(KEY);setTrip(fresh());go('home')};
+ const reset=()=>{localStorage.removeItem(KEY);window.HP_EVENTS.reset();setTrip(fresh());go('home')};
+ const [,bump]=React.useState(0);React.useEffect(()=>window.HP_EVENTS.subscribe(()=>bump(n=>n+1)),[]);
  const book=(o={})=>{const base=trip.paid?{...fresh(),names:trip.names,contact:trip.contact}:{};
   if(o.event){const ev=window.HP_DATA.events.find(e=>e.id===o.event);const t={...trip,...base,arrive:ev.start,depart:ev.end};update({...base,arrive:ev.start,depart:ev.end,eventId:ev.id,stay:null,unit:null,days:window.HP.openDays(t)});go('book/stay');return}
   if(o.stay){update({...base,stay:o.stay,unit:null,addAdmission:true});go('book/dates');return}
@@ -23,7 +24,7 @@ function App(){const hash=useHash();
   case 'cabins':body=<Cabins/>;break;
   case 'camping':body=<Camping/>;break;
   case 'groups':body=<Groups/>;break;
-  case 'rules':body=<Rules waiver={seg[1]==='waiver'}/>;break;
+  case 'rules':body=<Rules/>;break;
   case 'contact':body=<Contact/>;break;
   case 'book':booking=true;body=<Booking step={seg[1]||'dates'}/>;break;
   case 'checkout':booking=true;body=<Checkout/>;break;
@@ -31,8 +32,9 @@ function App(){const hash=useHash();
   case 'confirmation':body=<Confirmation/>;break;
   case 'gate':booking=true;body=<Gate/>;break;
   case 'home':body=<Home/>;break;
+  case 'admin':return <AppCtx.Provider value={ctx}><AdminApp seg={seg}/></AppCtx.Provider>;
   default:body=<NotFound/>;}
  return <AppCtx.Provider value={ctx}>{booking?body:<Shell page={page}>{body}</Shell>}</AppCtx.Provider>}
-const need=['Shell','Home','Rates','Faq','Gallery','NotFound','ContactForm','Cabins','Camping','Groups','Rules','Contact','EventsIndex','EventPage','Trails','UphillBothWays','Booking','Checkout','Waivers','Confirmation','Gate','BkFrame'];
+const need=['Shell','Home','Rates','Faq','Gallery','NotFound','ContactForm','Cabins','Camping','Groups','Rules','Contact','EventsIndex','EventPage','Trails','UphillBothWays','Booking','Checkout','Waivers','Confirmation','Gate','BkFrame','AdminApp','EventCalendar'];
 const start=()=>{if(need.some(n=>!window[n]))return setTimeout(start,30);if(window.__hpRoot)return;window.__hpRoot=ReactDOM.createRoot(document.getElementById('root'));window.__hpRoot.render(<App/>)};start();
 })();
